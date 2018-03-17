@@ -1,151 +1,132 @@
+/*MAIN*/
+
 body {
-  background-color:#262d32;
-  padding-top:10px;
-  font-family:'Nunito';
-  padding-bottom:20px;
+  background: linear-gradient(
+    rgba(37, 44, 48, 0.96),
+    rgba(37, 44, 48, 0.96)),
+    url(../images/neon-city-bg.png) no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  padding-top: 10px;
+  font-family: 'Nunito';
+  padding-bottom: 20px;
 }
 
-h1, h2, h3 {
-  color:#f5f7f9;
-  font-family:'Montserrat';
-  margin:0px;
+h1, h2, h3, h4, h5 {
+  color: var(--light);
+  font-family: 'Montserrat';
+  margin: 0px;
 }
 
 hr {
-  background-color:#f5f7f9;
-  margin:10px 0px;
+  background-color: var(--light);
+  margin: 10px 0px;
 }
 
 p {
-  font-family:'Nunito';
-  color:#f5f7f9;
+  font-family: 'Nunito';
+  color: #f5f7f9;
 }
+
+/*BUTTONS*/
 
 .btn-billing {
-  width:40px;
-  height:40px;
-  border-radius:20px;
-  border:none;
-  background-color:#908e86;
-  color:#262d32;
-}
-
-.btn-billing:not(:disabled):not(.disabled).active:focus, .btn-billing:not(:disabled):not(.disabled):active:focus, .show > .btn-billing.dropdown-toggle:focus {
-  box-shadow:none;
-}
-
-.btn-billing.focus, .btn-billing:focus {
-  box-shadow:none;
+  width: 40px;
+  height: 40px;
+  border-radius: 20px;
+  border: none;
+  background-color: var(--olive);
+  color: #262d32;
+  font-size: 22px;
 }
 
 .btn-billing:hover {
-  background-color:#bfbdb4;
+  background-color: #bfbdb4;
 }
 
 .btn-billing:not(:disabled):not(.disabled).active, .btn-billing:not(:disabled):not(.disabled):active, .show > .btn-billing.dropdown-toggle {
-  background-color:#a09f9c;
+  background-color: #a09f9c;
 }
 
 .btn-col {
-  padding-top:15px;
+  padding-top: 15px;
 }
 
-.btn-w-200 {
-  max-width:200px;
+.btn-shadow {
+  -webkit-box-shadow: 0px 10px 22px -10px rgba(0, 0, 0, 0.44);
+  -moz-box-shadow: 0px 10px 22px -10px rgba(0, 0, 0, 0.44);
+  box-shadow: 0px 10px 22px -10px rgba(0, 0, 0, 0.44);
 }
+
+/*INFO CIRCLES*/
 
 .info-circle-bounties, .info-circle-claims {
-  width:4.5rem;
-  height:4.5rem;
-  border-radius:2.25rem;
+  width: 4.5rem;
+  height: 4.5rem;
+  border-radius: 2.25rem;
 }
 
 .info-circle-bounties h3 {
-  color:#ef7f5a;
+  color: var(--orange);
 }
 
 .info-circle-claims h3 {
-  color:#2bcba8;
+  color: var(--green);
 }
 
 .info-circle-bounties {
-  border:1px solid #ef7f5a;
+  border: 1px solid var(--orange);
 }
 
 .info-circle-claims {
-  border:1px solid #2bcba8;
+  border: 1px solid var(--green);
 }
 
 .info-circle-row .col-3 {
-  padding:0px;
+  padding: 0px;
 }
 
 .info-circle-heading {
-  color:#f5f7f9;
-  padding-bottom:5px;
-  margin-bottom:0px;
+  color: #f5f7f9;
+  padding-bottom: 5px;
+  margin-bottom: 0px;
 }
 
-.fa.fa-dollar {
-  font-size:22px;
+/*CARDS*/
+.card-header {
+  padding-top: 5px;
+  padding-bottom: 5px;
 }
 
-.table-section {
-  padding-top:20px;
+.text-issue,
+.text-comments {
+  font-size: 1.1rem;
 }
 
-.info-table-row {
-  width:100%;
+.text-issue {
+  color: var(--dark-pruple);
 }
 
-.bg-panel-heading {
-  background-color:#313a40;
-  padding:5px 0px;
+.text-issue:hover {
+  color: var(--darker-purple);
+  text-decoration: none;
 }
 
-.bg-panel {
-  background-color:#444f56;
+.text-price {
+  font-size: 1.4rem;
 }
 
-.table-panel.bg-panel {
-  padding:5px 5px;
+/*ICONS*/
+
+.fas {
+  font-size: 22px;
 }
 
-.info-text-small {
-  font-size:18px;
-}
-
-.table-panel hr {
-  background-color:grey;
-}
-
-.row.info-table-row {
-  margin:0px;
-}
-
-.p-bounty-info {
-  font-size:1.5rem;
-}
-
-.p-bounty-info-money {
-  font-size:2.0rem;
-}
-
-@media (max-width: 480px) {
-  .p-bounty-info {
-    font-size:1rem;
+/*MEDIA QUERIES*/
+@media (max-width: 576px) {
+  .text-comments {
+    font-size: 0.9rem;
   }
 }
-
-@media (max-width: 480px) {
-  .info-text-small {
-    font-size:12px;
-  }
-}
-
-@media (max-width: 480px) {
-  h2 {
-    font-size:1.4rem;
-  }
-}
-
