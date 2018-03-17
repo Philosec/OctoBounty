@@ -54,7 +54,12 @@ p {
   padding-top: 15px;
 }
 
-.btn-shadow {
+.btn-shadow,
+.btn-shadow:hover,
+.btn-shadow:focus,
+.btn-shadow.focus,
+.btn-shadow:not(:disabled):not(.disabled).active, .btn-shadow:not(:disabled):not(.disabled):active, .show > .btn-shadow.dropdown-toggle,
+.btn-shadow:not(:disabled):not(.disabled).active:focus, .btn-shadow:not(:disabled):not(.disabled):active:focus, .show > .btn-shadow.dropdown-toggle:focus {
   -webkit-box-shadow: 0px 10px 22px -10px rgba(0, 0, 0, 0.44);
   -moz-box-shadow: 0px 10px 22px -10px rgba(0, 0, 0, 0.44);
   box-shadow: 0px 10px 22px -10px rgba(0, 0, 0, 0.44);
@@ -106,11 +111,11 @@ p {
 }
 
 .text-issue {
-  color: var(--dark-pruple);
+  color: var(--dark-blue);
 }
 
 .text-issue:hover {
-  color: var(--darker-purple);
+  color: var(--dark-purple);
   text-decoration: none;
 }
 
@@ -128,5 +133,14 @@ p {
 @media (max-width: 576px) {
   .text-comments {
     font-size: 0.9rem;
+  }
+
+  .bounty-title,
+  .issue-title{
+    font-size: 1.0rem;
+  }
+
+  .text-current-bounty {
+    font-size: 1.5rem;
   }
 }
