@@ -28,6 +28,7 @@ p {
   border:none;
   background-color:#908e86;
   color:#262d32;
+  font-size: 22px;
 }
 
 .btn-billing:not(:disabled):not(.disabled).active:focus, .btn-billing:not(:disabled):not(.disabled):active:focus, .show > .btn-billing.dropdown-toggle:focus {
@@ -86,7 +87,7 @@ p {
   margin-bottom:0px;
 }
 
-.fa.fa-dollar {
+.fas {
   font-size:22px;
 }
 
@@ -135,17 +136,16 @@ p {
   .p-bounty-info {
     font-size:1rem;
   }
-}
 
-@media (max-width: 480px) {
-  .info-text-small {
-    font-size:12px;
-  }
-}
-
-@media (max-width: 480px) {
   h2 {
     font-size:1.4rem;
   }
-}
 
+  .info-text-small {
+    font-size:12px;
+  }
+
+  .bounty-title {
+    font-size: 1.0rem;
+  }
+}
