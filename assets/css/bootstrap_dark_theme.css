@@ -1,5 +1,33 @@
+.bg-primary {
+  background-color: #90BE86!important;
+}
+
+.bg-secondary {
+  background-color: #655492!important;
+}
+
+.bg-success {
+  background-color: #2BCBA8!important;
+}
+
+.bg-danger {
+  background-color: #EF7F5A!important;
+}
+
+.bg-light {
+  background-color: #F5F7F9!important;
+}
+
 .bg-dark {
   background-color:#363e44!important;
+}
+
+.text-primary {
+  color: #90BE86!important;
+}
+
+.text-secondary {
+  color: #655492!important;
 }
 
 .text-success {
@@ -8,6 +36,14 @@
 
 .text-danger {
   color:#ef7f5a!important;
+}
+
+.text-light {
+  color: #F5F7F9!important;
+}
+
+.text-dark {
+  color:#363e44!important;
 }
 
 .btn-secondary {
