@@ -32,7 +32,7 @@ p {
 
 /*BUTTONS*/
 
-.btn-billing {
+.btn-circle {
   width: 40px;
   height: 40px;
   border-radius: 20px;
@@ -42,11 +42,11 @@ p {
   font-size: 22px;
 }
 
-.btn-billing:hover {
+.btn-circle:hover {
   background-color: #bfbdb4;
 }
 
-.btn-billing:not(:disabled):not(.disabled).active, .btn-billing:not(:disabled):not(.disabled):active, .show > .btn-billing.dropdown-toggle {
+.btn-circle:not(:disabled):not(.disabled).active, .btn-billing:not(:disabled):not(.disabled):active, .show > .btn-billing.dropdown-toggle {
   background-color: #a09f9c;
 }
 
@@ -99,12 +99,14 @@ p {
   margin-bottom: 0px;
 }
 
-/*BOUNTY DETAILS*/
+/*BOUNTY DETAILS PAGE*/
+
 .bounty-title {
   text-align: center;
 }
 
 /*CARDS*/
+
 .card-header {
   padding-top: 5px;
   padding-bottom: 5px;
@@ -134,6 +136,7 @@ p {
 }
 
 /*COMMENTS*/
+
 .section-comments .container{
   padding-top: 10px;
 }
@@ -162,12 +165,11 @@ p {
   font-size: 22px;
 }
 
-/*MEDIA QUERIES*/
-@media (max-width: 576px) {
-  .text-comments {
-    font-size: 0.9rem;
-  }
 
+/*MEDIA QUERIES*/
+
+@media (max-width: 576px) {
+  /*Bounty Details Page*/
   .bounty-title {
     font-size: 1.0rem;
     text-align: left;
@@ -177,10 +179,11 @@ p {
     font-size: 0.8rem;
   }
 
-  .text-current-bounty {
+  .current-bounty-heading {
     font-size: 1.5rem;
   }
 
+  /*COMMENTS*/
   .media img {
     max-width: 30px;
   }
@@ -192,5 +195,9 @@ p {
   .section-comments .container{
     padding-left: 0;
     padding-right: 0;
+  }
+
+  .text-comments {
+    font-size: 0.9rem;
   }
 }
