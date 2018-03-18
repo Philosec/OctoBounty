@@ -30,16 +30,26 @@ p {
   color: #f5f7f9;
 }
 
+.overflow-x-hidden {
+  overflow-x: hidden;
+}
+
 /*BUTTONS*/
 
+.btn-git {
+  font-size: 2.5rem;
+  width: 75px;
+  height: 75px;
+}
+
 .btn-circle {
-  width: 40px;
-  height: 40px;
-  border-radius: 20px;
+  width: 60px;
+  height: 60px;
+  border-radius: 30px;
   border: none;
   background-color: var(--olive);
   color: #262d32;
-  font-size: 22px;
+  font-size: 28px;
 }
 
 .btn-circle:hover {
@@ -159,12 +169,6 @@ p {
   margin-bottom: 8px;
 }
 
-/*ICONS*/
-
-.fas {
-  font-size: 22px;
-}
-
 
 /*MEDIA QUERIES*/
 
@@ -200,4 +204,67 @@ p {
   .text-comments {
     font-size: 0.9rem;
   }
+
+  .btn-circle {
+    width: 40px;
+    height: 40px;
+    border-radius: 20px;
+    font-size: 22px;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.app-title {
+  display: block;
+  font: 9.5em 'Quicksand';
+}
+
+.app-title-copy {
+  fill: none;
+  stroke: white;
+  stroke-dasharray: 6% 29%;
+  stroke-width: 5px;
+  stroke-dashoffset: 0%;
+  animation: stroke-offset 5.5s infinite linear;
+}
+
+.app-title-copy:nth-child(1){
+  stroke: var(--purple);
+  animation-delay: -1;
+}
+
+.app-title-copy:nth-child(2){
+  stroke: var(--light-purple);
+  animation-delay: -2s;
+}
+
+.app-title-copy:nth-child(3){
+  stroke: var(--dark-purple);
+  animation-delay: -3s;
+}
+
+.app-title-copy:nth-child(4){
+  stroke: var(--mid-gray);
+  animation-delay: -4s;
+}
+
+.app-title-copy:nth-child(5){
+  stroke: var(--dark-blue);
+  animation-delay: -5s;
+}
+
+@keyframes stroke-offset{
+  100% {stroke-dashoffset: -35%;}
 }
