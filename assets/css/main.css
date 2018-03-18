@@ -4,7 +4,7 @@ body {
   background: linear-gradient(
     rgba(37, 44, 48, 0.96),
     rgba(37, 44, 48, 0.96)),
-    url(../images/neon-city-bg.png) no-repeat center center fixed;
+  url(../images/neon-city-bg.png) no-repeat center center fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -134,6 +134,17 @@ p {
 }
 
 /*COMMENTS*/
+
+.section-comments .row,
+.section-comments .row .comment {
+  padding-top: 10px;
+}
+
+.section-comments .row:first-child,
+.section-comments .row .comment:first-child {
+  padding-top: 0;
+}
+
 .media-body {
   color: var(--light);
 }
@@ -161,7 +172,7 @@ p {
     text-align: left;
   }
 
-  .issue-title{
+  .issue-title {
     font-size: 0.8rem;
   }
 
