@@ -110,6 +110,11 @@ p {
   padding-bottom: 5px;
 }
 
+.card-body p {
+  color: var(--dark);
+  margin: 0;
+}
+
 .text-issue,
 .text-comments {
   font-size: 1.1rem;
@@ -126,6 +131,17 @@ p {
 
 .text-price {
   font-size: 1.4rem;
+}
+
+/*COMMENTS*/
+.media-body {
+  color: var(--light);
+}
+
+.media-heading {
+  font-size: 0.7rem;
+  color: var(--mid-gray);
+  margin-bottom: 8px;
 }
 
 /*ICONS*/
@@ -151,5 +167,13 @@ p {
 
   .text-current-bounty {
     font-size: 1.5rem;
+  }
+
+  .media img {
+    max-width: 30px;
+  }
+
+  .media-body {
+    font-size: 0.9rem;
   }
 }
