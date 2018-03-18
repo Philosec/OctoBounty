@@ -8,13 +8,15 @@
   --dark-purple: #402d6d;
   --dark-blue: #4b5c80;
   --light: #F5F7F9;
-  --olive: #908E86;
+  --olive: #817f77;
   --light-olive: #a3a199;
   --mid-olive: #8f8d85;
   --orange: #EF7F5A;
   --green: #2BCBA8;
   --mid-gray: #A7B6B3;
-  --light-gray: #CED0D2;
+  --light-gray: #c3c5c7;
+  --dark-gray: #a1a3a5;
+  --mid-gray-2: #b3b5b7;
 }
 
 .bg-primary {
@@ -77,9 +79,13 @@
   color: var(--dark) !important;
 }
 
+.text-gray {
+  color: var(--mid-gray) !important;
+}
+
 .btn-primary {
   color: var(--dark);
-  background-color: var(--light-gray);
+  background-color: var(--dark-gray);
 }
 
 .btn-secondary {
@@ -101,7 +107,7 @@
 
 .btn-primary:hover {
   color: var(--dark);
-  background-color: var(--mid-gray);
+  background-color: var(--light-gray);
 }
 
 .btn-secondary:hover {
@@ -131,7 +137,7 @@
 
 .btn-primary:not(:disabled):not(.disabled).active, .btn-primary:not(:disabled):not(.disabled):active, .show > .btn-primary.dropdown-toggle {
   color: var(--dark);
-  background-color: var(--gray);
+  background-color: var(--mid-gray-2);
 }
 
 .btn-secondary:not(:disabled):not(.disabled).active, .btn-secondary:not(:disabled):not(.disabled):active, .show > .btn-secondary.dropdown-toggle {
