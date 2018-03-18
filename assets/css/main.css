@@ -1,0 +1,211 @@
+body {
+  background-color: #262d32;
+  padding-top: 10px;
+  font-family: 'Nunito';
+  padding-bottom: 20px;
+}
+
+h1,
+h2,
+h3 {
+  color: #f5f7f9;
+  font-family: 'Montserrat';
+  margin: 0px;
+}
+
+hr {
+  background-color: #f5f7f9;
+  margin: 10px 0px;
+}
+
+p {
+  font-family: 'Nunito';
+  color: #f5f7f9;
+}
+
+.btn-billing {
+  width: 40px;
+  height: 40px;
+  border-radius: 20px;
+  border: none;
+  background-color: #908e86;
+  color: #262d32;
+}
+
+.btn-billing:not(:disabled):not(.disabled).active:focus,
+.btn-billing:not(:disabled):not(.disabled):active:focus,
+.show>.btn-billing.dropdown-toggle:focus {
+  box-shadow: none;
+}
+
+.btn-billing.focus,
+.btn-billing:focus {
+  box-shadow: none;
+}
+
+.btn-billing:hover {
+  background-color: #bfbdb4;
+}
+
+.btn-billing:not(:disabled):not(.disabled).active,
+.btn-billing:not(:disabled):not(.disabled):active,
+.show>.btn-billing.dropdown-toggle {
+  background-color: #a09f9c;
+}
+
+.btn-col {
+  padding-top: 15px;
+}
+
+.btn-w-200 {
+  max-width: 200px;
+}
+
+.info-circle-bounties,
+.info-circle-claims {
+  width: 4.5rem;
+  height: 4.5rem;
+  border-radius: 2.25rem;
+}
+
+.info-circle-bounties h3 {
+  color: #ef7f5a;
+}
+
+.info-circle-claims h3 {
+  color: #2bcba8;
+}
+
+.info-circle-bounties {
+  border: 1px solid #ef7f5a;
+}
+
+.info-circle-claims {
+  border: 1px solid #2bcba8;
+}
+
+.info-circle-row .col-3 {
+  padding: 0px;
+}
+
+.info-circle-heading {
+  color: #f5f7f9;
+  padding-bottom: 5px;
+  margin-bottom: 0px;
+}
+
+.fa.fa-dollar {
+  font-size: 22px;
+}
+
+.table-section {
+  padding-top: 20px;
+}
+
+.info-table-row {
+  width: 100%;
+}
+
+.bg-panel-heading {
+  background-color: #313a40;
+  padding: 5px 0px;
+}
+
+.bg-panel {
+  background-color: #444f56;
+}
+
+.table-panel.bg-panel {
+  padding: 5px 5px;
+}
+
+.info-text-small {
+  font-size: 18px;
+}
+
+.table-panel hr {
+  background-color: grey;
+}
+
+.row.info-table-row {
+  margin: 0px;
+}
+
+.p-bounty-info {
+  font-size: 1.5rem;
+}
+
+.p-bounty-info-money {
+  font-size: 2.0rem;
+}
+
+@media (max-width: 480px) {
+  .p-bounty-info {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .info-text-small {
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  h2 {
+    font-size: 1.4rem;
+  }
+}
+
+.username {
+  padding: 5%;
+}
+
+#validationDefault03 {
+  width: 150px;
+  height: 50px;
+  position: relative;
+}
+
+#validationDefault04 {
+  width: 120px;
+  height: 50px;
+  position: relative;
+}
+
+#validationDefault05 {
+  width: 150px;
+  height: 50px;
+  position: relative;
+}
+
+#bounty {
+  width: 450px;
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+  text-align: center;
+}
+
+.filter {
+  color: black;
+  text-decoration: underline;
+}
+
+#searchy {
+  text-decoration: underline;
+}
+
+#issues {
+  width: 350px;
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+  border-radius: 15px;
+  
+  
+}
+
+#txtbox {
+  width: 500px;
+}
