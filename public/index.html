@@ -3,8 +3,16 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OctoBounty</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,600">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito">
+    <link rel="stylesheet" href="assets/css/bootstrap_dark_theme.css">
+    <link rel="stylesheet" href="assets/css/main.css">
     <title>Welcome to Octobounty</title>
-
     <!-- update the version number as needed -->
     <script defer src="/__/firebase/4.11.0/firebase-app.js"></script>
     <!-- include only the Firebase features as you need -->
@@ -14,52 +22,126 @@
     <script defer src="/__/firebase/4.11.0/firebase-storage.js"></script>
     <!-- initialize the SDK after all desired features are loaded -->
     <script defer src="/__/firebase/init.js"></script>
-
-    <style media="screen">
-      body { background: #ECEFF1; color: rgba(0,0,0,0.87); font-family: Roboto, Helvetica, Arial, sans-serif; margin: 0; padding: 0; }
-      #message { background: white; max-width: 360px; margin: 100px auto 16px; padding: 32px 24px; border-radius: 3px; }
-      #message h2 { color: #ffa100; font-weight: bold; font-size: 16px; margin: 0 0 8px; }
-      #message h1 { font-size: 22px; font-weight: 300; color: rgba(0,0,0,0.6); margin: 0 0 16px;}
-      #message p { line-height: 140%; margin: 16px 0 24px; font-size: 14px; }
-      #message a { display: block; text-align: center; background: #039be5; text-transform: uppercase; text-decoration: none; color: white; padding: 16px; border-radius: 4px; }
-      #message, #message a { box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24); }
-      #load { color: rgba(0,0,0,0.4); text-align: center; font-size: 13px; }
-      @media (max-width: 600px) {
-        body, #message { margin-top: 0; background: white; box-shadow: none; }
-        body { border-top: 16px solid #ffa100; }
-      }
-    </style>
   </head>
   <body>
-    <div id="message">
-      <h2>Welcome to</h2>
-      <h1>Octobounty</h1>
-      <p>Login Below to Start Hunting!</p>
-      <form method="post" action="index.html">
-        <p><input type="text" name="login" value="" placeholder="Username or Email"></p>
-        <p><input type="password" name="password" value="" placeholder="Password"></p>
-        <p class="remember_me">
-          <label>
-            <input type="checkbox" name="remember_me" id="remember_me">
-            Remember me on this computer
-          </label>
-        </p>
-        <p class="submit"><input type="submit" name="commit" value="Login"></p>
-        <div class="login-help">
-          <p>Forgot your password? <a href="index.html">Click here to reset it</a>.</p>
+    <h2 class="text-center">Welcome to</h2>
+      <h1 class="text-center">Octobounty</h1>
+      <h4 class="text-center">Login Below to Start Hunting!</h4>
+      <div class="top-content">
+        	
+        <div class="inner-bg">
+            <div class="container">
+              
+                <div class="row">
+                    <div class="col-sm-8 col-sm-offset-2 text">
+                        <h1><strong>Bootstrap</strong> Login &amp; Register Forms</h1>
+                        <div class="description">
+                          <p>
+                            This is a free responsive <strong>"login and register forms"</strong> template made with Bootstrap. 
+                            Download it on <a href="http://azmind.com" target="_blank"><strong>AZMIND</strong></a>, 
+                            customize and use it as you like!
+                          </p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-sm-5">
+                      
+                      <div class="form-box">
+                        <div class="form-top">
+                          <div class="form-top-left">
+                            <h3>Login to our site</h3>
+                              <p>Enter username and password to log on:</p>
+                          </div>
+                          <div class="form-top-right">
+                            <i class="fa fa-key"></i>
+                          </div>
+                          </div>
+                          <div class="form-bottom">
+                        <form role="form" action="" method="post" class="login-form">
+                          <div class="form-group">
+                            <label class="sr-only" for="form-username">Username</label>
+                              <input type="text" name="form-username" placeholder="Username..." class="form-username form-control" id="form-username">
+                            </div>
+                            <div class="form-group">
+                              <label class="sr-only" for="form-password">Password</label>
+                              <input type="password" name="form-password" placeholder="Password..." class="form-password form-control" id="form-password">
+                            </div>
+                            <button type="submit" class="btn">Sign in!</button>
+                        </form>
+                      </div>
+                    </div>
+                
+                  <div class="social-login">
+                        <h3>...or login with:</h3>
+                        <div class="social-login-buttons">
+                          <a class="btn btn-link-1 btn-link-1-github" href="#">
+                            <i class="fa fa-facebook"></i> Github
+                          </a>
+                          <a class="btn btn-link-1 btn-link-1-google-plus" href="#">
+                            <i class="fa fa-google-plus"></i> Google Plus
+                          </a>
+                        </div>
+                      </div>
+                      
+                    </div>
+                    
+                    <div class="col-sm-1 middle-border"></div>
+                    <div class="col-sm-1"></div>
+                      
+                    <div class="col-sm-5">
+                      
+                      <div class="form-box">
+                        <div class="form-top">
+                          <div class="form-top-left">
+                            <h3>Start Hunting</h3>
+                              <p>Fill in the form below and join OctoBounty</p>
+                          </div>
+                          <div class="form-top-right">
+                            <i class="fa fa-pencil"></i>
+                          </div>
+                          </div>
+                          <div class="form-bottom">
+                        <form role="form" action="" method="post" class="registration-form">
+                          <div class="form-group">
+                            <label class="sr-only" for="form-first-name">First name</label>
+                              <input type="text" name="form-first-name" placeholder="First name..." class="form-first-name form-control" id="form-first-name">
+                            </div>
+                            <div class="form-group">
+                              <label class="sr-only" for="form-last-name">Last name</label>
+                              <input type="text" name="form-last-name" placeholder="Last name..." class="form-last-name form-control" id="form-last-name">
+                            </div>
+                            <div class="form-group">
+                              <label class="sr-only" for="form-email">Email</label>
+                              <input type="text" name="form-email" placeholder="Email..." class="form-email form-control" id="form-email">
+                            </div>
+                            <div class="form-group">
+                              <label class="sr-only" for="form-about-yourself">About yourself</label>
+                              <textarea name="form-about-yourself" placeholder="About yourself..." 
+                                    class="form-about-yourself form-control" id="form-about-yourself"></textarea>
+                            </div>
+                            <button type="submit" class="btn">Sign me up!</button>
+                        </form>
+                      </div>
+                      </div>
+                      
+                    </div>
+                </div>
+                
+            </div>
         </div>
-      </form>
-
-
+        
+    </div>
     <script>
       document.addEventListener('DOMContentLoaded', function() {
         // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
         // // The Firebase SDK is initialized and available here!
-        //
-        // firebase.auth().onAuthStateChanged(user => { });
-        // firebase.database().ref('/path/to/ref').on('value', snapshot => { });
-        // firebase.messaging().requestPermission().then(() => { });
-        // firebase.storage().ref('/path/to/ref').getDownloadURL().then(() => { });
+        
+         firebase.auth().onAuthStateChanged(user => { });
+         firebase.database().ref('/path/to/ref').on('value', snapshot => { });
+         firebase.messaging().requestPermission().then(() => { });
+         firebase.storage().ref('/path/to/ref').getDownloadURL().then(() => { });
         //
         // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
 
