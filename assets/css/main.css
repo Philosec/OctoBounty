@@ -134,14 +134,15 @@ p {
 }
 
 /*COMMENTS*/
-
-.section-comments .row,
-.section-comments .row .comment {
+.section-comments .container{
   padding-top: 10px;
 }
 
-.section-comments .row:first-child,
-.section-comments .row .comment:first-child {
+.section-comments .media {
+  padding-top: 15px;
+}
+
+.section-comments .media:first-child {
   padding-top: 0;
 }
 
@@ -186,5 +187,10 @@ p {
 
   .media-body {
     font-size: 0.9rem;
+  }
+
+  .section-comments .container{
+    padding-left: 0;
+    padding-right: 0;
   }
 }
