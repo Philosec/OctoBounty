@@ -146,16 +146,16 @@ pre,
   margin: 0;
 }
 
-.text-issue,
-.text-comments {
+.issue-text,
+.comment-count {
   font-size: 1.1rem;
 }
 
-.text-issue {
+.issue-text {
   color: var(--dark-blue);
 }
 
-.text-issue:hover {
+.issue-text:hover {
   color: var(--dark-purple);
   text-decoration: none;
 }
@@ -188,8 +188,6 @@ pre,
 .media-body {
   color: var(--light);
   background-color: var(--secondary-dark);
-  min-width: 85%;
-  max-width: 85%;
 }
 
 .media-heading {
@@ -263,22 +261,15 @@ pre,
   }
   
   /*COMMENTS*/
-  /*.media img {*/
-    /*max-width: 30px;*/
-  /*}*/
   
-  /*.media-body {*/
-    /*font-size: 0.9rem;*/
-  /*}*/
+  .media-body {
+    font-size: 0.9rem;
+    max-width: 85%;
+  }
   
-  /*.section-comments .container{*/
-    /*padding-left: 0;*/
-    /*padding-right: 0;*/
-  /*}*/
-  
-  /*.text-comments {*/
-    /*font-size: 0.9rem;*/
-  /*}*/
+  .comment-count {
+    font-size: 0.9rem;
+  }
   
   .btn-circle {
     width: 40px;

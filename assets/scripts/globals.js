@@ -1,13 +1,15 @@
-var dbSelectors = {
+const dbSelectors = {
   bountyLink: '.bounty-link',
   btnNewBounty: '#btn-new-bounty',
   btnSearchBounties: '#btn-search-bounties'
 }
 
-var biSelectors = {
+const biSelectors = {
   bountyTitle: '.bounty-title',
   issueIdHeader: '.issue-id-header',
   issueDescription: '.issue-description'
 }
 
-var converter = new showdown.Converter()
+const converter = new showdown.Converter()
+
+const database = new firebase.database()
