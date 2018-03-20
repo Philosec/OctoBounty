@@ -12,7 +12,7 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito">
   <link rel="stylesheet" href="assets/css/bootstrap_dark_theme.css">
   <link rel="stylesheet" href="assets/css/main.css">
-
+  
   <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"
           integrity="sha384-SlE991lGASHoBfWbelyBPLsUlwY1GwNDJo3jSJO04KZ33K2bwfV9YBauFfnzvynJ"
           crossorigin="anonymous"></script>
@@ -26,9 +26,8 @@
         class="btn btn-outline-light btn-sm d-flex mx-auto my-auto btn-circle"
         role="button" href="#"><i class="fas fa-home mx-auto my-auto"></i></a>
       </div>
-      <div class="col-8 p-0">
-        <h2 class="bounty-title text-center">Fix issue with rendering the div element when a header comes before
-          it.</h2>
+      <div class="col-8 p-0 d-flex">
+        <h2 class="bounty-title text-center mx-auto my-auto"></h2>
       </div>
       <div class="col-2 d-flex pl-1 pr-1">
         <a class="btn btn-outline-light btn-sm d-flex mx-auto my-auto btn-circle" role="button" href="#"><i class="fas fa-user mx-auto my-auto"></i></a>
@@ -36,13 +35,13 @@
     </div>
   </header>
   <hr>
-
+  
   <div class="row">
     <div class="col pt-2">
-      <h4 class="text-truncate text-center issue-title text-gray">Philosec/OctoBounty/Issue#135</h4>
+      <h4 class="text-truncate text-center issue-id-header text-gray"></h4>
     </div>
   </div>
-
+  
   <section>
     <div class="row">
       <div class="col pt-3 text-center">
@@ -55,7 +54,7 @@
       </div>
     </div>
   </section>
-
+  
   <section>
     <div class="row">
       <div class="col-sm-6 col-md-5 offset-md-1 btn-col">
@@ -66,57 +65,59 @@
       </div>
     </div>
   </section>
-
+  
   <section class="pt-5">
     <div class="card">
       <h5 class="card-header text-center">Description</h5>
       <div class="card-body">
-        <p>
-          My issue is simple.
-          I'm working on a player for a web radio, and I would like to define an interval to try to reconnect to the
-          stream every 10 seconds when connection is lost.
-        </p>
+        <div class="issue-description"></div>
       </div>
     </div>
   </section>
-
+  
   <section class="section-comments pt-5">
     <h4 class="text-center">Comments</h4>
     <hr>
-    <div class="container">
-      <div class="media">
-        <img class="mr-3" src="assets/images/generic-user-icons/girl.png" alt="Generic placeholder image">
-        <div class="media-body">
-          <div class="media-heading">Maria commented on 12/31/2017 13:00</div>
-          Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
-        </div>
-      </div>
-      <div class="media">
-        <img class="mr-3" src="assets/images/generic-user-icons/man.png" alt="Generic placeholder image">
-        <div class="media-body">
-          <div class="media-heading">Maria commented on 12/31/2017 13:00</div>
-          Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
-        </div>
-      </div>
-      <div class="media">
-        <img class="mr-3" src="assets/images/generic-user-icons/man2.png" alt="Generic placeholder image">
-        <div class="media-body">
-          <div class="media-heading">Maria commented on 12/31/2017 13:00</div>
-          Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
-        </div>
-      </div>
-      <div class="media">
-        <img class="mr-3" src="assets/images/generic-user-icons/girl2.png" alt="Generic placeholder image">
-        <div class="media-body">
-          <div class="media-heading">Maria commented on 12/31/2017 13:00</div>
-          Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
-        </div>
-      </div>
+    <div class="container comment-container">
+      <!--<div class="media">-->
+      <!--<img class="mr-3" src="assets/images/generic-user-icons/girl.png" alt="Generic placeholder image">-->
+      <!--<div class="media-body">-->
+      <!--<div class="media-heading">Maria commented on 12/31/2017 13:00</div>-->
+      <!--Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.-->
+      <!--</div>-->
+      <!--</div>-->
+      <!--<div class="media">-->
+      <!--<img class="mr-3" src="assets/images/generic-user-icons/man.png" alt="Generic placeholder image">-->
+      <!--<div class="media-body">-->
+      <!--<div class="media-heading">Maria commented on 12/31/2017 13:00</div>-->
+      <!--Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.-->
+      <!--</div>-->
+      <!--</div>-->
+      <!--<div class="media">-->
+      <!--<img class="mr-3" src="assets/images/generic-user-icons/man2.png" alt="Generic placeholder image">-->
+      <!--<div class="media-body">-->
+      <!--<div class="media-heading">Maria commented on 12/31/2017 13:00</div>-->
+      <!--Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.-->
+      <!--</div>-->
+      <!--</div>-->
+      <!--<div class="media">-->
+      <!--<img class="mr-3" src="assets/images/generic-user-icons/girl2.png" alt="Generic placeholder image">-->
+      <!--<div class="media-body">-->
+      <!--<div class="media-heading">Maria commented on 12/31/2017 13:00</div>-->
+      <!--Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.-->
+      <!--</div>-->
+      <!--</div>-->
     </div>
   </section>
 </div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script
+  src="https://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
+<script src="https://cdn.rawgit.com/showdownjs/showdown/1.8.6/dist/showdown.min.js"></script>
+<script src="assets/scripts/globals.js"></script>
+<script src="assets/scripts/bounty_info.js"></script>
 </body>
 
 </html>

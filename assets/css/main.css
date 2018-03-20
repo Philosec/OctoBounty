@@ -115,6 +115,22 @@ p {
   text-align: center;
 }
 
+.issue-description h1,
+.issue-description h2,
+.issue-description h3,
+.issue-description h4,
+.issue-description h5,
+.card-body .issue-description p {
+  color: var(--dark);
+  margin-bottom: 10px;
+}
+
+code,
+pre{
+  background-color: var(--dark);
+  color: var(--light-gray);
+}
+
 /*CARDS*/
 
 .card-header {
@@ -170,65 +186,11 @@ p {
 }
 
 
-/*MEDIA QUERIES*/
-
-@media (max-width: 576px) {
-  /*Bounty Details Page*/
-  .bounty-title {
-    font-size: 1.0rem;
-    text-align: left;
-  }
-
-  .issue-title {
-    font-size: 0.8rem;
-  }
-
-  .current-bounty-heading {
-    font-size: 1.5rem;
-  }
-
-  /*COMMENTS*/
-  .media img {
-    max-width: 30px;
-  }
-
-  .media-body {
-    font-size: 0.9rem;
-  }
-
-  .section-comments .container{
-    padding-left: 0;
-    padding-right: 0;
-  }
-
-  .text-comments {
-    font-size: 0.9rem;
-  }
-
-  .btn-circle {
-    width: 40px;
-    height: 40px;
-    border-radius: 20px;
-    font-size: 22px;
-  }
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+/*APP TITLE*/
 .app-title {
   display: block;
   font: 9.5em 'Quicksand';
+  height: 180px;
 }
 
 .app-title-copy {
@@ -267,4 +229,65 @@ p {
 
 @keyframes stroke-offset{
   100% {stroke-dashoffset: -35%;}
+}
+
+
+/*MEDIA QUERIES*/
+
+@media (max-width: 576px) {
+  /*Bounty Details Page*/
+  .bounty-title {
+    font-size: 1.0rem;
+    text-align: left;
+  }
+  
+  .issue-id-header {
+    font-size: 0.8rem;
+  }
+  
+  .current-bounty-heading {
+    font-size: 1.5rem;
+  }
+  
+  /*COMMENTS*/
+  .media img {
+    max-width: 30px;
+  }
+  
+  .media-body {
+    font-size: 0.9rem;
+  }
+  
+  .section-comments .container{
+    padding-left: 0;
+    padding-right: 0;
+  }
+  
+  .text-comments {
+    font-size: 0.9rem;
+  }
+  
+  .btn-circle {
+    width: 40px;
+    height: 40px;
+    border-radius: 20px;
+    font-size: 22px;
+  }
+  
+  .app-title {
+    font: 3.2em 'Quicksand';
+    height: 70px;
+  }
+  
+  .app-title-copy {
+    stroke-width: 2px;
+  }
+  
+  /*Bounty Modal*/
+  .bounty-modal-title {
+    font-size: 1.5rem;
+  }
+  .bounty-modal-label {
+    font-size: 1.0rem;
+  }
 }
