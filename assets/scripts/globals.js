@@ -10,6 +10,4 @@ var biSelectors = {
   issueDescription: '.issue-description'
 }
 
-var saveVars = {
-  issueJson: 'issueJson'
-}
+var converter = new showdown.Converter()

@@ -126,9 +126,12 @@ p {
 }
 
 code,
-pre{
+pre,
+.media-body code,
+.media-body pre{
   background-color: var(--dark);
   color: var(--light-gray);
+  /*max-width: 100%;*/
 }
 
 /*CARDS*/
@@ -175,8 +178,18 @@ pre{
   padding-top: 0;
 }
 
+.media img {
+  width: 60px;
+  height: 60px;
+  margin-right: 10px;
+  border-radius: 30px;
+}
+
 .media-body {
   color: var(--light);
+  background-color: var(--secondary-dark);
+  min-width: 85%;
+  max-width: 85%;
 }
 
 .media-heading {
@@ -250,22 +263,22 @@ pre{
   }
   
   /*COMMENTS*/
-  .media img {
-    max-width: 30px;
-  }
+  /*.media img {*/
+    /*max-width: 30px;*/
+  /*}*/
   
-  .media-body {
-    font-size: 0.9rem;
-  }
+  /*.media-body {*/
+    /*font-size: 0.9rem;*/
+  /*}*/
   
-  .section-comments .container{
-    padding-left: 0;
-    padding-right: 0;
-  }
+  /*.section-comments .container{*/
+    /*padding-left: 0;*/
+    /*padding-right: 0;*/
+  /*}*/
   
-  .text-comments {
-    font-size: 0.9rem;
-  }
+  /*.text-comments {*/
+    /*font-size: 0.9rem;*/
+  /*}*/
   
   .btn-circle {
     width: 40px;
@@ -289,5 +302,12 @@ pre{
   }
   .bounty-modal-label {
     font-size: 1.0rem;
+  }
+  
+  .media img {
+    width: 30px;
+    height: 30px;
+    margin-right: 5px;
+    border-radius: 15px;
   }
 }

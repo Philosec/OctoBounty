@@ -15,16 +15,8 @@ function saveViewedIssueJson(event) {
   event.preventDefault()
 
   let issueId = $(event.currentTarget).data('issue-id');
-  let apiUrl = 'https://api.github.com/repos/' + issueId
 
-
-  window.location = 'bounty-info.html' + '?issue=' + issueId
-
-  // $.get(apiUrl, (response) => {
-  //   // window.localStorage.setItem(saveVars.issueJson, JSON.stringify(response))
-  //
-  //
-  // })
+  window.location = $(event.currentTarget).attr('href') + '?issueId=' + issueId
 }
 
 function showNewBountyModal() {
