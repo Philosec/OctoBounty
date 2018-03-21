@@ -10,6 +10,9 @@ const biSelectors = {
   issueDescription: '.issue-description'
 }
 
+const ghRepoApiUrl = 'https://api.github.com/repos/'
+
 const converter = new showdown.Converter()
 
 const database = new firebase.database()
+const auth = new firebase.auth()

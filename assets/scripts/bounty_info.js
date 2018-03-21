@@ -2,7 +2,7 @@ $().ready(() => {
   var issueId = getParameterByName('issueId')
   var issueJSON = {}
 
-  let apiUrl = 'https://api.github.com/repos/' + issueId
+  let apiUrl = ghRepoApiUrl + issueId
 
   $.get(apiUrl, (response) => {
     populateIssueDetails(response, issueId)
