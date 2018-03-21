@@ -25,6 +25,10 @@ function getIssueIdFromUrl(issueUrl) {
   return issueUrl.trim().replace('https://github.com/', '')
 }
 
+function getIssueIdFromApiUrl(issueUrl) {
+  return issueUrl.trim().replace('https://api.github.com/repos/', '')
+}
+
 function getFullIssueUrlFromId(issueId) {
   return ghRepoApiUrl + issueId
 }

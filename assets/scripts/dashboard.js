@@ -1,37 +1,57 @@
 $().ready(() => {
-  //Get user
+  setupUserAuthentication()
+
+
+
+  // //Database listeners
+  // var userOpenBountiesRef = database.ref('users').child(ghUsername).child('open_bounties')
+  // userOpenBountiesRef.on('child_added', snapshot => {
+  //   var hashId = snapshot.key
+  //
+  //   getIssueIdFromHashId(hashId, appendNewLink)
+  // })
+
+  //Issue link click handlers
+  $(document).on('click', dbSelectors.bountyLink, event => {
+    event.preventDefault()
+    gotoBountyDetailPage()
+  })
+
+  $(dbSelectors.btnNewBounty).on('click', event => {
+    event.preventDefault()
+    showNewBountyModal()
+  })
+})
+
+function setupUserAuthentication() {
+  //Authentication
   var activeUser = null
-  var activeUserToken = null
 
   firebase.auth().getRedirectResult().then(function(result) {
     if (result.credential) {
-      // This gives you a GitHub Access Token. You can use it to access the GitHub API.
       var token = result.credential.accessToken;
       window.localStorage.setItem('ghAuthToken', token)
-      var username = result.additionalUserInfo.username
-      window.localStorage.setItem('ghUsername', username)
+      var ghUsername = result.additionalUserInfo.username.toLowerCase()
+      window.localStorage.setItem('ghUsername', ghUsername)
+      writeNewUserData(ghUsername)
     }
   }).catch(function(error) {
     var errorCode = error.code;
     var errorMessage = error.message;
     var email = error.email;
     var credential = error.credential;
+
+    console.log(errorCode + " " + errorMessage + " " + email + " " + credential)
   })
 
   firebase.auth().onAuthStateChanged(function(user) {
     if (user) {
       activeUser = user
-      // console.log(activeUser)
       $('#btn-profile').html('<img src="' + activeUser.photoURL + '" class="rounded-circle">')
     }
   })
 
-  //Issue link click handlers
-  $(document).on('click', dbSelectors.bountyLink, event => {
-    saveViewedIssueJson(event)
-  })
-
-  //Button Click handlers
+  //Profile button handler
   $('#btn-profile').on('click', event => {
     event.preventDefault()
 
@@ -40,22 +60,23 @@ $().ready(() => {
       firebase.auth().signInWithRedirect(provider);
     }
   })
+}
 
-  $(dbSelectors.btnNewBounty).on('click', event => {
-    event.preventDefault()
-    showNewBountyModal(activeUser)
-  })
-})
+function appendNewLink(parentSelector, linkId) {
+  var $link = $('<a href="bounty-info.html" class="issue-text bounty-link" data-issue-id=' + linkId + '>')
+  var $col = $('<div class="col-12 col-md-6 text-truncate my-auto">')
+  var $row = $('<div class="row">')
+  $($col).append($link)
+  $($row).append($col)
+  $(parentSelector).append($row)
+}
 
-function saveViewedIssueJson(event) {
-  event.preventDefault()
-
+function gotoBountyDetailPage() {
   let issueId = $(event.currentTarget).data('issue-id');
-
   window.location = $(event.currentTarget).attr('href') + '?issueId=' + issueId
 }
 
-function showNewBountyModal(activeUser) {
+function showNewBountyModal() {
   swal({
     background: 'var(--dark)',
     html:
@@ -95,7 +116,9 @@ function showNewBountyModal(activeUser) {
     allowOutsideClick: () => !swal.isLoading()
   }).then(function (result) {
     if (result.value) {
-      writeNewIssueData(result.value[0], 'philosec', result.value[1], () => {
+      console.log('here')
+      var username = window.localStorage.getItem('ghUsername')
+      writeNewBountyData(result.value[0], username, result.value[1], () => {
         swal({
           background: 'var(--dark)',
           html: '<h4 class="text-center text-light">Bounty already exists for that issue.</h4>',
