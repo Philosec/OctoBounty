@@ -1,0 +1,304 @@
+/*MAIN*/
+
+body {
+  background: linear-gradient(
+    rgba(37, 44, 48, 0.96),
+    rgba(37, 44, 48, 0.96)),
+  url(../images/neon-city-bg.png) no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  padding-top: 10px;
+  font-family: 'Nunito';
+  padding-bottom: 20px;
+}
+
+h1, h2, h3, h4, h5 {
+  color: var(--light);
+  font-family: 'Montserrat';
+  margin: 0px;
+}
+
+hr {
+  background-color: var(--light);
+  margin: 10px 0px;
+}
+
+p {
+  font-family: 'Nunito';
+  color: #f5f7f9;
+}
+
+.overflow-x-hidden {
+  overflow-x: hidden;
+}
+
+/*BUTTONS*/
+
+.btn-git {
+  font-size: 2.5rem;
+  width: 75px;
+  height: 75px;
+}
+
+.btn-circle {
+  width: 60px;
+  height: 60px;
+  border-radius: 30px;
+  border: none;
+  background-color: var(--olive);
+  color: #262d32;
+  font-size: 28px;
+}
+
+.btn-circle:hover {
+  background-color: #bfbdb4;
+}
+
+.btn-circle:not(:disabled):not(.disabled).active, .btn-billing:not(:disabled):not(.disabled):active, .show > .btn-billing.dropdown-toggle {
+  background-color: #a09f9c;
+}
+
+.btn-col {
+  padding-top: 15px;
+}
+
+.btn-shadow,
+.btn-shadow:hover,
+.btn-shadow:focus,
+.btn-shadow.focus,
+.btn-shadow:not(:disabled):not(.disabled).active, .btn-shadow:not(:disabled):not(.disabled):active, .show > .btn-shadow.dropdown-toggle,
+.btn-shadow:not(:disabled):not(.disabled).active:focus, .btn-shadow:not(:disabled):not(.disabled):active:focus, .show > .btn-shadow.dropdown-toggle:focus {
+  -webkit-box-shadow: 0px 10px 22px -10px rgba(0, 0, 0, 0.44);
+  -moz-box-shadow: 0px 10px 22px -10px rgba(0, 0, 0, 0.44);
+  box-shadow: 0px 10px 22px -10px rgba(0, 0, 0, 0.44);
+}
+
+/*INFO CIRCLES*/
+
+.info-circle-bounties, .info-circle-claims {
+  width: 4.5rem;
+  height: 4.5rem;
+  border-radius: 2.25rem;
+}
+
+.info-circle-bounties h3 {
+  color: var(--orange);
+}
+
+.info-circle-claims h3 {
+  color: var(--green);
+}
+
+.info-circle-bounties {
+  border: 1px solid var(--orange);
+}
+
+.info-circle-claims {
+  border: 1px solid var(--green);
+}
+
+.info-circle-row .col-3 {
+  padding: 0px;
+}
+
+.info-circle-heading {
+  color: #f5f7f9;
+  padding-bottom: 5px;
+  margin-bottom: 0px;
+}
+
+/*BOUNTY DETAILS PAGE*/
+
+.bounty-title {
+  text-align: center;
+}
+
+.issue-description h1,
+.issue-description h2,
+.issue-description h3,
+.issue-description h4,
+.issue-description h5,
+.card-body .issue-description p {
+  color: var(--dark);
+  margin-bottom: 10px;
+}
+
+code,
+pre,
+.media-body code,
+.media-body pre{
+  background-color: var(--dark);
+  color: var(--light-gray);
+  /*max-width: 100%;*/
+}
+
+/*CARDS*/
+
+.card-header {
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+.card-body p {
+  color: var(--dark);
+  margin: 0;
+}
+
+.issue-text,
+.comment-count {
+  font-size: 1.1rem;
+}
+
+.issue-text {
+  color: var(--dark-blue);
+}
+
+.issue-text:hover {
+  color: var(--dark-purple);
+  text-decoration: none;
+}
+
+.text-price {
+  font-size: 1.4rem;
+}
+
+/*COMMENTS*/
+
+.section-comments .container{
+  padding-top: 10px;
+}
+
+.section-comments .media {
+  padding-top: 15px;
+}
+
+.section-comments .media:first-child {
+  padding-top: 0;
+}
+
+.media img {
+  width: 60px;
+  height: 60px;
+  margin-right: 10px;
+  border-radius: 30px;
+}
+
+.media-body {
+  color: var(--light);
+  background-color: var(--secondary-dark);
+}
+
+.media-heading {
+  font-size: 0.7rem;
+  color: var(--mid-gray);
+  margin-bottom: 8px;
+}
+
+
+/*APP TITLE*/
+.app-title {
+  display: block;
+  font: 9.5em 'Quicksand';
+  height: 180px;
+}
+
+.app-title-copy {
+  fill: none;
+  stroke: white;
+  stroke-dasharray: 6% 29%;
+  stroke-width: 5px;
+  stroke-dashoffset: 0%;
+  animation: stroke-offset 5.5s infinite linear;
+}
+
+.app-title-copy:nth-child(1){
+  stroke: var(--purple);
+  animation-delay: -1;
+}
+
+.app-title-copy:nth-child(2){
+  stroke: var(--light-purple);
+  animation-delay: -2s;
+}
+
+.app-title-copy:nth-child(3){
+  stroke: var(--dark-purple);
+  animation-delay: -3s;
+}
+
+.app-title-copy:nth-child(4){
+  stroke: var(--mid-gray);
+  animation-delay: -4s;
+}
+
+.app-title-copy:nth-child(5){
+  stroke: var(--dark-blue);
+  animation-delay: -5s;
+}
+
+@keyframes stroke-offset{
+  100% {stroke-dashoffset: -35%;}
+}
+
+
+/*MEDIA QUERIES*/
+
+@media (max-width: 576px) {
+  /*Bounty Details Page*/
+  .bounty-title {
+    font-size: 1.0rem;
+    text-align: left;
+  }
+  
+  .issue-id-header {
+    font-size: 0.8rem;
+  }
+  
+  .current-bounty-heading {
+    font-size: 1.5rem;
+  }
+  
+  /*COMMENTS*/
+  
+  .media-body {
+    font-size: 0.9rem;
+    max-width: 85%;
+  }
+  
+  .comment-count {
+    font-size: 0.9rem;
+  }
+  
+  .btn-circle {
+    width: 40px;
+    height: 40px;
+    border-radius: 20px;
+    font-size: 22px;
+  }
+  
+  .app-title {
+    font: 3.2em 'Quicksand';
+    height: 70px;
+  }
+  
+  .app-title-copy {
+    stroke-width: 2px;
+  }
+  
+  /*Bounty Modal*/
+  .bounty-modal-title {
+    font-size: 1.5rem;
+  }
+  .bounty-modal-label {
+    font-size: 1.0rem;
+  }
+  
+  .media img {
+    width: 30px;
+    height: 30px;
+    margin-right: 5px;
+    border-radius: 15px;
+  }
+}
