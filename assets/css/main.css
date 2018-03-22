@@ -4,7 +4,7 @@ body {
   background: linear-gradient(
     rgba(37, 44, 48, 0.96),
     rgba(37, 44, 48, 0.96)),
-  url(../images/neon-city-bg.png) no-repeat center center fixed;
+    url(../images/neon-city-bg.png) no-repeat center center fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -251,42 +251,42 @@ pre,
     font-size: 1.0rem;
     text-align: left;
   }
-  
+
   .issue-id-header {
     font-size: 0.8rem;
   }
-  
+
   .current-bounty-heading {
     font-size: 1.5rem;
   }
-  
+
   /*COMMENTS*/
-  
+
   .media-body {
     font-size: 0.9rem;
     max-width: 85%;
   }
-  
+
   .comment-count {
     font-size: 0.9rem;
   }
-  
+
   .btn-circle {
     width: 40px;
     height: 40px;
     border-radius: 20px;
     font-size: 22px;
   }
-  
+
   .app-title {
     font: 3.2em 'Quicksand';
     height: 70px;
   }
-  
+
   .app-title-copy {
     stroke-width: 2px;
   }
-  
+
   /*Bounty Modal*/
   .bounty-modal-title {
     font-size: 1.5rem;
@@ -294,7 +294,7 @@ pre,
   .bounty-modal-label {
     font-size: 1.0rem;
   }
-  
+
   .media img {
     width: 30px;
     height: 30px;
