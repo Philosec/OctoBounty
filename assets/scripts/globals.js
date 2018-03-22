@@ -7,7 +7,8 @@ const dbSelectors = {
 const biSelectors = {
   bountyTitle: '.bounty-title',
   issueIdHeader: '.issue-id-header',
-  issueDescription: '.issue-description'
+  issueDescription: '.issue-description',
+  curBountyAmount: '.current-bounty-amount'
 }
 
 const ghRepoApiUrl = 'https://api.github.com/repos/'

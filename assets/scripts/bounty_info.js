@@ -1,34 +1,137 @@
 $().ready(() => {
-  var issueId = getParameterByName('issueId')
-  var issueJSON = {}
+  let issueId = getParameterByName('issueId')
+  let issueApiUrl = getFullIssueUrlFromId(issueId) + getAuthTokenParameter()
 
-  let apiUrl = ghRepoApiUrl + issueId
+  initPageButtons()
+  registerButtonCallbacks()
 
-  $.get(apiUrl, (response) => {
-    populateIssueDetails(response, issueId)
+  $.get(issueApiUrl, (response) => {
+    let bountyRef = database.ref('bounties')
+    bountyRef.once('value')
+      .then(bountiesSnapshot => {
+        let hashId = getHashFromIssueId(issueId)
+        let bountyAmount = bountiesSnapshot.child(hashId).val().bounty_amount_posted
+        populateIssueDetails(response, issueId, bountyAmount)
+      })
   })
 })
 
-function populateIssueDetails(issueJSON, issueId) {
+function initPageButtons() {
+  let username = window.localStorage.getItem('ghUsername')
+  let issueHashId = getHashFromIssueId(getParameterByName('issueId'))
+
+  onCheckUserOwnsBounty(username, issueHashId, () => {
+    $('.bounty-owned-btn-row').removeClass('d-none')
+
+    onClaimCanBeAwarded(username, issueHashId, () => {
+      $('#btn-approve-claim').removeClass('d-none')
+    }, () => {
+      $('#btn-no-claim').removeClass('d-none')
+    })
+
+  }, () => {
+    $('.bounty-not-owned-btn-row').removeClass('d-none')
+
+    onCheckUserClaimedBounty(username, issueHashId, () => {
+      $('#btn-cancel-claim').removeClass('d-none')
+    }, () => {
+      $('#btn-claim-bounty').removeClass('d-none')
+    })
+
+    onBountyTracked(username, issueHashId, () => {
+      $('#btn-untrack-bounty').removeClass('d-none')
+    }, () => {
+      $('#btn-track-bounty').removeClass('d-none')
+    })
+  })
+}
+
+function registerButtonCallbacks() {
+  $('#btn-track-bounty').on('click', event => {
+    trackBounty()
+    $(event.currentTarget).addClass('d-none')
+    $('#btn-untrack-bounty').removeClass('d-none')
+  })
+
+  $('#btn-untrack-bounty').on('click', event => {
+    untrackBounty()
+    $(event.currentTarget).addClass('d-none')
+    $('#btn-track-bounty').removeClass('d-none')
+  })
+
+  $('#btn-claim-bounty').on('click', event => {
+    claimBounty()
+    $('#btn-claim-bounty').addClass('d-none')
+    $('#btn-cancel-claim').removeClass('d-none')
+  })
+
+  $('#btn-cancel-claim').on('click', event => {
+    cancelBountyClaim()
+    $('#btn-cancel-claim').addClass('d-none')
+    $('#btn-claim-bounty').removeClass('d-none')
+  })
+
+  $('#btn-approve-claim').on('click', event => {
+    event.preventDefault()
+    approveBountyClaim()
+    $('.bounty-owned-btn-row').addClass('d-none')
+  })
+}
+
+function populateIssueDetails(issueJSON, issueId, bountyAmount) {
   $(biSelectors.bountyTitle).text(issueJSON.title)
   $(biSelectors.issueIdHeader).text(issueId)
+  $(biSelectors.curBountyAmount).text('$' + bountyAmount)
 
-  var descriptionHTML = converter.makeHtml(issueJSON.body)
+  let descriptionHTML = converter.makeHtml(issueJSON.body)
   $(biSelectors.issueDescription).html(descriptionHTML)
-  $.get(issueJSON.comments_url, (response) => {
+
+  let commentsApiUrl = issueJSON.comments_url + getAuthTokenParameter()
+  $.get(commentsApiUrl, (response) => {
     $.each(response, (index, value) => {
-      var $img = $('<img>').attr('src', value.user.avatar_url)
-      var $mediaBody = $('<div>').addClass('media-body container')
-      var $mediaHeader = $('<div>').addClass('media-heading').text(value.user.login + ' commented on ' + value.updated_at)
-      var $mediaBodyContent = converter.makeHtml(value.body)
+      let $img = $('<img src="' + value.user.avatar_url + '">')
+      let $mediaBody = $('<div class="media-body container">')
+      let $mediaHeader = $('<div class="media-heading">').text(value.user.login + ' commented on ' + value.updated_at)
+      let $mediaBodyContent = converter.makeHtml(value.body)
       $mediaBody.append($mediaHeader)
       $mediaBody.append($mediaBodyContent)
-      var $commentHTML = $('<div>').attr('class', 'media')
+      let $commentHTML = $('<div class="media">')
       $commentHTML.append($img)
       $commentHTML.append($mediaBody)
-
-
       $('.comment-container').append($commentHTML)
     })
   })
+}
+
+function trackBounty() {
+  let issueHashId = getHashFromIssueId(getParameterByName('issueId'))
+  let username = window.localStorage.getItem('ghUsername')
+  addTrackBountyToUser(username, issueHashId)
+}
+
+function untrackBounty() {
+  let issueHashId = getHashFromIssueId(getParameterByName('issueId'))
+  let username = window.localStorage.getItem('ghUsername')
+  removeTrackBountyFromUser(username, issueHashId)
+}
+
+function claimBounty() {
+  let issueHashId = getHashFromIssueId(getParameterByName('issueId'))
+  let username = window.localStorage.getItem('ghUsername')
+
+  addBountyClaim(username, issueHashId)
+}
+
+function cancelBountyClaim() {
+  let issueHashId = getHashFromIssueId(getParameterByName('issueId'))
+  let username = window.localStorage.getItem('ghUsername')
+
+  removeBountyClaim(username, issueHashId)
+}
+
+function approveBountyClaim() {
+  let issueHashId = getHashFromIssueId(getParameterByName('issueId'))
+  let username = window.localStorage.getItem('ghUsername')
+
+  addClosedBounty(username, issueHashId)
 }

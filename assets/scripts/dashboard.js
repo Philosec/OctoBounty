@@ -1,6 +1,24 @@
 $().ready(() => {
   setupUserAuthentication()
-  setupBountyTables()
+
+  $('.nothing-here-row', '.tracked-bounties-well').removeClass('d-none')
+  $('.nothing-here-row', '.open-bounties-well').removeClass('d-none')
+  $('.nothing-here-row', '.claimed-bounties-well').removeClass('d-none')
+  $('.nothing-here-row', '.earned-bounties-well').removeClass('d-none')
+  $('.nothing-here-row', '.paid-bounties-well').removeClass('d-none')
+
+  let username = window.localStorage.getItem('ghUsername')
+
+  let userOpenBountiesRef = database.ref('users').child(username).child('open_bounties')
+  let openBountiesRef = database.ref('open_bounties')
+  setupBountyTable(userOpenBountiesRef, openBountiesRef, '.open-bounties-well')
+
+  let userTeackedBountiesRef = database.ref('users').child(username).child('tracked_bounties')
+  let allBountiesRef = database.ref('bounties')
+  setupBountyTable(userTeackedBountiesRef, allBountiesRef, '.tracked-bounties-well')
+
+  let userClaimedBountiesRef = database.ref('users').child(username).child('claimed_bounties')
+  setupBountyTable(userClaimedBountiesRef, allBountiesRef, '.claimed-bounties-well')
 
   //Issue link click handlers
   $(document).on('click', dbSelectors.bountyLink, event => {
@@ -15,22 +33,21 @@ $().ready(() => {
 })
 
 function setupUserAuthentication() {
-  //Authentication
-  var activeUser = null
+  let activeUser = null
 
   firebase.auth().getRedirectResult().then(function(result) {
     if (result.credential) {
-      var token = result.credential.accessToken;
+      let token = result.credential.accessToken;
       window.localStorage.setItem('ghAuthToken', token)
-      var ghUsername = result.additionalUserInfo.username.toLowerCase()
+      let ghUsername = result.additionalUserInfo.username.toLowerCase()
       window.localStorage.setItem('ghUsername', ghUsername)
-      writeNewUserData(ghUsername)
+      addNewUserData(ghUsername)
     }
   }).catch(function(error) {
-    var errorCode = error.code;
-    var errorMessage = error.message;
-    var email = error.email;
-    var credential = error.credential;
+    let errorCode = error.code;
+    let errorMessage = error.message;
+    let email = error.email;
+    let credential = error.credential;
 
     console.log(errorCode + " " + errorMessage + " " + email + " " + credential)
   })
@@ -47,33 +64,31 @@ function setupUserAuthentication() {
     event.preventDefault()
 
     if (activeUser === null) {
-      var provider = new firebase.auth.GithubAuthProvider();
+      let provider = new firebase.auth.GithubAuthProvider();
       firebase.auth().signInWithRedirect(provider);
     }
   })
 }
 
-function setupBountyTables() {
-  var username = window.localStorage.getItem('ghUsername')
-  let userOpenBountiesRef = database.ref('users').child(username).child('open_bounties')
-
-  userOpenBountiesRef.on('child_added', userSnapshot => {
-    let openBountiesRef = database.ref('open_bounties')
-    openBountiesRef
-      .once('value')
+function setupBountyTable(userSubBountyRef, lookupRef, appendSelector) {
+  userSubBountyRef.on('child_added', userSnapshot => {
+    $('.nothing-here-row', appendSelector).addClass('d-none')
+    lookupRef.once('value')
       .then(openBountiesSnapshot => {
-        var hashId = userSnapshot.key
-        var issueVal = openBountiesSnapshot.child(hashId).val()
-        var issueApiUrl = issueVal.issue_url
-        $.get(issueApiUrl, issueResponse => {
-          $.get(issueResponse.comments_url, commentsResponse => {
-            var linkId = getIssueIdFromApiUrl(issueApiUrl)
-            var bountyAmount = issueVal.bounty_amount_posted
-            if ($('.open-bounties-well').children().length <= 0) {
-              appendNewLink('.open-bounties-well', linkId, issueResponse.title, commentsResponse.length, bountyAmount, false)
+        let hashId = userSnapshot.key
+        let issueVal = openBountiesSnapshot.child(hashId).val()
+        let issueApiUrl = issueVal.issue_url
+
+        $.get(issueApiUrl + getAuthTokenParameter(), issueResponse => {
+          let commentApiUrl = issueResponse.comments_url + getAuthTokenParameter()
+          $.get(commentApiUrl, commentsResponse => {
+            let linkId = getIssueIdFromApiUrl(issueApiUrl)
+            let bountyAmount = issueVal.bounty_amount_posted
+            if ($(appendSelector).children().length <= 1) {
+              appendNewLink(appendSelector, linkId, issueResponse.title, commentsResponse.length, bountyAmount, false)
             }
             else {
-              appendNewLink('.open-bounties-well', linkId, issueResponse.title, commentsResponse.length, bountyAmount, true)
+              appendNewLink(appendSelector, linkId, issueResponse.title, commentsResponse.length, bountyAmount, true)
             }
           })
         })
@@ -82,12 +97,12 @@ function setupBountyTables() {
 }
 
 function appendNewLink(parentSelector, linkId, issueTitle, commentCount, bountyAmount, useSeparator) {
-  var $link = $('<a href="bounty-info.html" class="issue-text bounty-link" data-issue-id=' + linkId + '>').text(issueTitle)
-  var $issueTitleCol = $('<div class="col-12 col-md-6 text-truncate my-auto">')
-  var $commentCountCol = $('<div class="col-6 col-md-4 text-center comment-count my-auto">').text(commentCount + ' Comments')
-  var $bountyAmountCol = $('<div class="col-6 col-md-2 text-center text-price my-auto">').text('$' + bountyAmount)
-  var $row = $('<div class="row">')
-  var $separator = $('<hr class="bg-gray">')
+  let $link = $('<a href="bounty-info.html" class="issue-text bounty-link" data-issue-id=' + linkId + '>').text(issueTitle)
+  let $issueTitleCol = $('<div class="col-12 col-md-6 text-truncate my-auto">')
+  let $commentCountCol = $('<div class="col-6 col-md-4 text-center comment-count my-auto">').text(commentCount + ' Comments')
+  let $bountyAmountCol = $('<div class="col-6 col-md-2 text-center text-price my-auto">').text('$' + bountyAmount)
+  let $row = $('<div class="row">')
+  let $separator = $('<hr class="bg-gray">')
 
   $($issueTitleCol).append($link)
   $($row).append($issueTitleCol)
@@ -122,9 +137,9 @@ function showNewBountyModal() {
     focusConfirm: false,
     preConfirm: function () {
       return new Promise((resolve) => {
-        var issueId = getIssueIdFromUrl($('#issue-url-input').val())
-        var bountyOffered = $('#bounty-offered-input').val()
-        var apiUrl = getFullIssueUrlFromId(issueId)
+        let issueId = getIssueIdFromUrl($('#issue-url-input').val())
+        let bountyOffered = $('#bounty-offered-input').val()
+        let issueApiUrl = getFullIssueUrlFromId(issueId) + getAuthTokenParameter()
 
         if (isNaN(bountyOffered) || parseInt(bountyOffered) <= 0) {
           swal.showValidationError('Bounty offered must be greater than $0')
@@ -133,7 +148,7 @@ function showNewBountyModal() {
         else {
           setTimeout(() => {
             //Validate and pass the api URL and show message on fail
-            $.get(apiUrl, (response) => {
+            $.get(issueApiUrl, (response) => {
               resolve([issueId, bountyOffered])
             }).fail(() => {
               swal.showValidationError('Issue URL is not valid.')
@@ -146,8 +161,8 @@ function showNewBountyModal() {
     allowOutsideClick: () => !swal.isLoading()
   }).then(function (result) {
     if (result.value) {
-      var username = window.localStorage.getItem('ghUsername')
-      writeNewBountyData(result.value[0], username, result.value[1], () => {
+      let username = window.localStorage.getItem('ghUsername')
+      addNewBountyData(result.value[0], username, result.value[1], () => {
         swal({
           background: 'var(--dark)',
           html: '<h4 class="text-center text-light">Bounty already exists for that issue.</h4>',
