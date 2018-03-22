@@ -1,6 +1,15 @@
 $().ready(() => {
   setupUserAuthentication()
-  setupBountyTables()
+
+  let username = window.localStorage.getItem('ghUsername')
+
+  let userOpenBountiesRef = database.ref('users').child(username).child('open_bounties')
+  let openBountiesRef = database.ref('open_bounties')
+  setupBountyTable(userOpenBountiesRef, openBountiesRef, '.open-bounties-well')
+
+  let userTeackedBountiesRef = database.ref('users').child(username).child('tracked_bounties')
+  let allBountiesRef = database.ref('bounties')
+  setupBountyTable(userTeackedBountiesRef, allBountiesRef, '.tracked-bounties-well')
 
   //Issue link click handlers
   $(document).on('click', dbSelectors.bountyLink, event => {
@@ -53,13 +62,10 @@ function setupUserAuthentication() {
   })
 }
 
-function setupBountyTables() {
-  let username = window.localStorage.getItem('ghUsername')
-  let userOpenBountiesRef = database.ref('users').child(username).child('open_bounties')
-
-  userOpenBountiesRef.on('child_added', userSnapshot => {
-    let openBountiesRef = database.ref('open_bounties')
-    openBountiesRef.once('value')
+function setupBountyTable(userSubBountyRef, lookupRef, appendSelector) {
+  userSubBountyRef.on('child_added', userSnapshot => {
+    $('.nothing-here-row', appendSelector).addClass('d-none')
+    lookupRef.once('value')
       .then(openBountiesSnapshot => {
         let hashId = userSnapshot.key
         let issueVal = openBountiesSnapshot.child(hashId).val()
@@ -70,11 +76,11 @@ function setupBountyTables() {
           $.get(commentApiUrl, commentsResponse => {
             let linkId = getIssueIdFromApiUrl(issueApiUrl)
             let bountyAmount = issueVal.bounty_amount_posted
-            if ($('.open-bounties-well').children().length <= 0) {
-              appendNewLink('.open-bounties-well', linkId, issueResponse.title, commentsResponse.length, bountyAmount, false)
+            if ($(appendSelector).children().length <= 1) {
+              appendNewLink(appendSelector, linkId, issueResponse.title, commentsResponse.length, bountyAmount, false)
             }
             else {
-              appendNewLink('.open-bounties-well', linkId, issueResponse.title, commentsResponse.length, bountyAmount, true)
+              appendNewLink(appendSelector, linkId, issueResponse.title, commentsResponse.length, bountyAmount, true)
             }
           })
         })
