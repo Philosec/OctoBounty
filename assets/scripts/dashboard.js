@@ -20,6 +20,12 @@ $().ready(() => {
   let userClaimedBountiesRef = database.ref('users').child(username).child('claimed_bounties')
   setupBountyTable(userClaimedBountiesRef, allBountiesRef, '.claimed-bounties-well')
 
+  let userEarnedBountiesRef = database.ref('users').child(username).child('earned_bounties')
+  setupBountyTable(userEarnedBountiesRef, allBountiesRef, '.earned-bounties-well')
+
+  let userClosedBountiesRef = database.ref('users').child(username).child('closed_bounties')
+  setupBountyTable(userClosedBountiesRef, allBountiesRef, '.paid-bounties-well')
+
   //Issue link click handlers
   $(document).on('click', dbSelectors.bountyLink, event => {
     event.preventDefault()
