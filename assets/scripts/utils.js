@@ -36,3 +36,7 @@ function getFullIssueUrlFromId(issueId) {
 function getHashFromIssueId(issueUrlId) {
   return issueUrlId.hashCode()
 }
+
+function getAuthTokenParameter() {
+  return '?access_token=' +  window.localStorage.getItem('ghAuthToken')
+}

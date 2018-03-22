@@ -1,6 +1,6 @@
 function writeNewBountyData(issueUrlId, userOpened, bountyAmount, failCallback) {
-  var issueHashId = getHashFromIssueId(issueUrlId)
-  var issuesRef = database.ref('bounties')
+  let issueHashId = getHashFromIssueId(issueUrlId)
+  let issuesRef = database.ref('bounties')
 
   issuesRef.once('value')
     .then(snapshot => {
@@ -15,39 +15,56 @@ function writeNewBountyData(issueUrlId, userOpened, bountyAmount, failCallback) 
           is_open: true
         })
 
-        var openIssuesRef = database.ref('open_bounties')
+        let openIssuesRef = database.ref('open_bounties')
         openIssuesRef.child(issueHashId).set({
           user_opened: userOpened,
           issue_url: getFullIssueUrlFromId(issueUrlId),
           bounty_amount_posted: bountyAmount
         })
 
-        var userOpenBountiesRef = database.ref('users').child(userOpened).child("open_bounties");
+        let userOpenBountiesRef = database.ref('users').child(userOpened).child("open_bounties");
         userOpenBountiesRef.child(issueHashId).set(true)
       }
     })
 }
 
 function writeNewUserData(ghUsername) {
-  var ref = database.ref('users')
-
+  let ref = database.ref('users')
   ref.once('value')
     .then(snapshot => {
-      if (snapshot.child(ghUsername).exists()) {
-        return
-      }
-      else {
-        var userRef = database.ref('users')
+      if (!snapshot.child(ghUsername).exists()) {
+        let userRef = database.ref('users')
         userRef.child(ghUsername).set(true)
       }
     })
 }
 
-// function getIssueIdFromHashId(hashId, callback) {
-//   database.ref('bounties').child(hashId).once('value')
-//     .then(snapshot => {
-//       var sv = snapshot.val()
-//       var issueUrl = sv.issue_url
-//       callback('.open-bounties-well', getIssueIdFromApiUrl(issueUrl))
-//     })
-// }
+function addTrackBountyToUser(ghUsername, issueHashId) {
+  let userTrackedBountiesRef = database.ref('users').child(ghUsername).child("tracked_bounties");
+
+  userTrackedBountiesRef.once('value')
+    .then(snapshot => {
+      if (!snapshot.child(issueHashId).exists()) {
+        userTrackedBountiesRef.child(issueHashId).set(true)
+      }
+    })
+}
+
+function removeTrackBountyToUser(ghUsername, issueHashId) {
+  let userTrackedBountiesRef = database.ref('users').child(ghUsername).child("tracked_bounties");
+  userTrackedBountiesRef.child(issueHashId).remove()
+}
+
+function ifBountyTracked(ghUsername, issueHashId, trueCallback, falseCallback) {
+  let userTrackedBountiesRef = database.ref('users').child(ghUsername).child("tracked_bounties");
+
+  userTrackedBountiesRef.once('value')
+    .then(snapshot => {
+      if (snapshot.child(issueHashId).exists()) {
+        trueCallback()
+      }
+      else {
+        falseCallback()
+      }
+    })
+}

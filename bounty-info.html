@@ -50,7 +50,7 @@
     </div>
     <div class="row">
       <div class="col pt-1 text-center">
-        <h1 class="text-truncate font-weight-bold text-success">$700</h1>
+        <h1 class="text-truncate font-weight-bold text-success current-bounty-amount"></h1>
       </div>
     </div>
   </section>
@@ -58,10 +58,11 @@
   <section>
     <div class="row">
       <div class="col-sm-6 col-md-5 offset-md-1 btn-col">
-        <button class="btn btn-primary btn-block btn-lg btn-shadow" type="button">Track Bounty</button>
+        <button class="btn btn-primary btn-block btn-lg btn-shadow mt-0 d-none" type="button" id="btn-track-bounty">Track Bounty</button>
+        <button class="btn btn-primary btn-block btn-lg btn-shadow mt-0 d-none" type="button" id="btn-untrack-bounty">Untrack Bounty</button>
       </div>
       <div class="col-sm-6 col-md-5 offset-sm-0 offset-md-0 btn-col">
-        <button class="btn btn-secondary btn-block btn-lg btn-shadow" type="button">Claim Bounty</button>
+        <button class="btn btn-secondary btn-block btn-lg btn-shadow" type="button" id="btn-claim-bounty">Claim Bounty</button>
       </div>
     </div>
   </section>
@@ -83,13 +84,24 @@
   </section>
 </div>
 
+<!--jQuery-->
 <script
   src="https://code.jquery.com/jquery-3.3.1.min.js"
   integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
   crossorigin="anonymous"></script>
+<!--Firebase-->
+<script src="https://www.gstatic.com/firebasejs/4.11.0/firebase.js"></script>
+<script src="assets/scripts/firebase_config.js"></script>
+<!--Shims-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/core-js/2.4.1/core.js"></script>
+<!--Sweet Alert-->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2"></script>
+<!--Showdown-->
 <script src="https://cdn.rawgit.com/showdownjs/showdown/1.8.6/dist/showdown.min.js"></script>
+<!--Main App-->
 <script src="assets/scripts/globals.js"></script>
 <script src="assets/scripts/utils.js"></script>
+<script src="assets/scripts/database.js"></script>
 <script src="assets/scripts/bounty_info.js"></script>
 </body>
 

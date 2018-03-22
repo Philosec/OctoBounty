@@ -1,34 +1,79 @@
 $().ready(() => {
-  var issueId = getParameterByName('issueId')
-  var issueJSON = {}
+  let issueId = getParameterByName('issueId')
+  let issueApiUrl = getFullIssueUrlFromId(issueId) + getAuthTokenParameter()
 
-  let apiUrl = ghRepoApiUrl + issueId
+  initTrackingButtons()
+  registerButtonCallbacks()
 
-  $.get(apiUrl, (response) => {
-    populateIssueDetails(response, issueId)
+  $.get(issueApiUrl, (response) => {
+    let bountyRef = database.ref('bounties')
+    bountyRef.once('value')
+      .then(bountiesSnapshot => {
+        let hashId = getHashFromIssueId(issueId)
+        let bountyAmount = bountiesSnapshot.child(hashId).val().bounty_amount_posted
+        populateIssueDetails(response, issueId, bountyAmount)
+      })
   })
 })
 
-function populateIssueDetails(issueJSON, issueId) {
+function initTrackingButtons() {
+  let username = window.localStorage.getItem('ghUsername')
+  let issueHashId = getHashFromIssueId(getParameterByName('issueId'))
+
+  ifBountyTracked(username, issueHashId, () => {
+    $('#btn-untrack-bounty').removeClass('d-none')
+  }, () => {
+    $('#btn-track-bounty').removeClass('d-none')
+  })
+}
+
+function registerButtonCallbacks() {
+  $('#btn-track-bounty').on('click', event => {
+    trackBounty()
+    $(event.currentTarget).addClass('d-none')
+    $('#btn-untrack-bounty').removeClass('d-none')
+  })
+
+  $('#btn-untrack-bounty').on('click', event => {
+    untrackBounty()
+    $(event.currentTarget).addClass('d-none')
+    $('#btn-track-bounty').removeClass('d-none')
+  })
+}
+
+function populateIssueDetails(issueJSON, issueId, bountyAmount) {
   $(biSelectors.bountyTitle).text(issueJSON.title)
   $(biSelectors.issueIdHeader).text(issueId)
+  $(biSelectors.curBountyAmount).text('$' + bountyAmount)
 
-  var descriptionHTML = converter.makeHtml(issueJSON.body)
+  let descriptionHTML = converter.makeHtml(issueJSON.body)
   $(biSelectors.issueDescription).html(descriptionHTML)
-  $.get(issueJSON.comments_url, (response) => {
+
+  let commentsApiUrl = issueJSON.comments_url + getAuthTokenParameter()
+  $.get(commentsApiUrl, (response) => {
     $.each(response, (index, value) => {
-      var $img = $('<img>').attr('src', value.user.avatar_url)
-      var $mediaBody = $('<div>').addClass('media-body container')
-      var $mediaHeader = $('<div>').addClass('media-heading').text(value.user.login + ' commented on ' + value.updated_at)
-      var $mediaBodyContent = converter.makeHtml(value.body)
+      let $img = $('<img src="' + value.user.avatar_url + '">')
+      let $mediaBody = $('<div class="media-body container">')
+      let $mediaHeader = $('<div class="media-heading">').text(value.user.login + ' commented on ' + value.updated_at)
+      let $mediaBodyContent = converter.makeHtml(value.body)
       $mediaBody.append($mediaHeader)
       $mediaBody.append($mediaBodyContent)
-      var $commentHTML = $('<div>').attr('class', 'media')
+      let $commentHTML = $('<div class="media">')
       $commentHTML.append($img)
       $commentHTML.append($mediaBody)
-
-
       $('.comment-container').append($commentHTML)
     })
   })
+}
+
+function trackBounty() {
+  let issueHashId = getHashFromIssueId(getParameterByName('issueId'))
+  let username = window.localStorage.getItem('ghUsername')
+  addTrackBountyToUser(username, issueHashId)
+}
+
+function untrackBounty() {
+  let issueHashId = getHashFromIssueId(getParameterByName('issueId'))
+  let username = window.localStorage.getItem('ghUsername')
+  removeTrackBountyToUser(username, issueHashId)
 }
