@@ -83,7 +83,7 @@ function removeBountyClaim(ghUsername, issueHashId) {
   userClaimedBountiesRef.child(issueHashId).remove()
 }
 
-function addClosedBounty(issueHashId) {
+function addClosedBounty(ghusername, issueHashId) {
   let closedBountiesRef = database.ref('closed_bounties')
   let claimedBountiesRef = database.ref('claimed_bounties')
   let claimerUsername = ''
@@ -111,7 +111,7 @@ function addClosedBounty(issueHashId) {
           })
 
         removeBountyClaim(claimerUsername, issueHashId)
-        removeOpenBountyFromUser(claimerUsername, issueHashId)
+        removeOpenBountyFromUser(ghusername, issueHashId)
         removeOpenBounty(issueHashId)
         updateBountyOpenStatus(issueHashId, false)
       }

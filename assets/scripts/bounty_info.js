@@ -133,5 +133,5 @@ function approveBountyClaim() {
   let issueHashId = getHashFromIssueId(getParameterByName('issueId'))
   let username = window.localStorage.getItem('ghUsername')
 
-  addClosedBounty(issueHashId)
+  addClosedBounty(username, issueHashId)
 }
