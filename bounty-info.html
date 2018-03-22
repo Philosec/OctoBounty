@@ -24,7 +24,7 @@
     <div class="row">
       <div class="col-2 d-flex pl-1 pr-1"><a
         class="btn btn-outline-light btn-sm d-flex mx-auto my-auto btn-circle"
-        role="button" href="#"><i class="fas fa-home mx-auto my-auto"></i></a>
+        role="button" href="dashboard.html"><i class="fas fa-home mx-auto my-auto"></i></a>
       </div>
       <div class="col-8 p-0 d-flex">
         <h2 class="bounty-title text-center mx-auto my-auto"></h2>
@@ -56,13 +56,23 @@
   </section>
   
   <section>
-    <div class="row">
-      <div class="col-sm-6 col-md-5 offset-md-1 btn-col">
+    <div class="row bounty-owned-btn-row d-none">
+      <div class="col btn-col">
+        <button class="btn btn-primary btn-block btn-lg btn-shadow mt-0" type="button" id="btn-cancel-bounty">Cancel Bounty</button>
+      </div>
+      <div class="col btn-col">
+        <button class="btn btn-dark rounded-0 disabled btn-block btn-lg btn-shadow mt-0" type="button" id="btn-approve-claim">No Claim</button>
+      </div>
+    </div>
+
+    <div class="row bounty-not-owned-btn-row d-none">
+      <div class="col btn-col">
         <button class="btn btn-primary btn-block btn-lg btn-shadow mt-0 d-none" type="button" id="btn-track-bounty">Track Bounty</button>
         <button class="btn btn-primary btn-block btn-lg btn-shadow mt-0 d-none" type="button" id="btn-untrack-bounty">Untrack Bounty</button>
       </div>
-      <div class="col-sm-6 col-md-5 offset-sm-0 offset-md-0 btn-col">
-        <button class="btn btn-secondary btn-block btn-lg btn-shadow" type="button" id="btn-claim-bounty">Claim Bounty</button>
+      <div class="col btn-col">
+        <button class="btn btn-secondary btn-block btn-lg btn-shadow mt-0 d-none" type="button" id="btn-claim-bounty">Claim Bounty</button>
+        <button class="btn btn-secondary btn-block btn-lg btn-shadow mt-0 d-none" type="button" id="btn-cancel-claim">Cancel Claim</button>
       </div>
     </div>
   </section>
