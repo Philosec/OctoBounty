@@ -1,6 +1,12 @@
 $().ready(() => {
   setupUserAuthentication()
 
+  $('.nothing-here-row', '.tracked-bounties-well').removeClass('d-none')
+  $('.nothing-here-row', '.open-bounties-well').removeClass('d-none')
+  $('.nothing-here-row', '.claimed-bounties-well').removeClass('d-none')
+  $('.nothing-here-row', '.earned-bounties-well').removeClass('d-none')
+  $('.nothing-here-row', '.paid-bounties-well').removeClass('d-none')
+
   let username = window.localStorage.getItem('ghUsername')
 
   let userOpenBountiesRef = database.ref('users').child(username).child('open_bounties')
@@ -10,6 +16,9 @@ $().ready(() => {
   let userTeackedBountiesRef = database.ref('users').child(username).child('tracked_bounties')
   let allBountiesRef = database.ref('bounties')
   setupBountyTable(userTeackedBountiesRef, allBountiesRef, '.tracked-bounties-well')
+
+  let userClaimedBountiesRef = database.ref('users').child(username).child('claimed_bounties')
+  setupBountyTable(userClaimedBountiesRef, allBountiesRef, '.claimed-bounties-well')
 
   //Issue link click handlers
   $(document).on('click', dbSelectors.bountyLink, event => {
@@ -24,7 +33,6 @@ $().ready(() => {
 })
 
 function setupUserAuthentication() {
-  //Authentication
   let activeUser = null
 
   firebase.auth().getRedirectResult().then(function(result) {
@@ -33,7 +41,7 @@ function setupUserAuthentication() {
       window.localStorage.setItem('ghAuthToken', token)
       let ghUsername = result.additionalUserInfo.username.toLowerCase()
       window.localStorage.setItem('ghUsername', ghUsername)
-      writeNewUserData(ghUsername)
+      addNewUserData(ghUsername)
     }
   }).catch(function(error) {
     let errorCode = error.code;
@@ -133,8 +141,6 @@ function showNewBountyModal() {
         let bountyOffered = $('#bounty-offered-input').val()
         let issueApiUrl = getFullIssueUrlFromId(issueId) + getAuthTokenParameter()
 
-        console.log(issueApiUrl)
-
         if (isNaN(bountyOffered) || parseInt(bountyOffered) <= 0) {
           swal.showValidationError('Bounty offered must be greater than $0')
           resolve()
@@ -156,7 +162,7 @@ function showNewBountyModal() {
   }).then(function (result) {
     if (result.value) {
       let username = window.localStorage.getItem('ghUsername')
-      writeNewBountyData(result.value[0], username, result.value[1], () => {
+      addNewBountyData(result.value[0], username, result.value[1], () => {
         swal({
           background: 'var(--dark)',
           html: '<h4 class="text-center text-light">Bounty already exists for that issue.</h4>',

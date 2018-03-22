@@ -1,4 +1,8 @@
-function writeNewBountyData(issueUrlId, userOpened, bountyAmount, failCallback) {
+//-------------------------------------
+//CRUD
+//-------------------------------------
+
+function addNewBountyData(issueUrlId, userOpened, bountyAmount, failCallback) {
   let issueHashId = getHashFromIssueId(issueUrlId)
   let issuesRef = database.ref('bounties')
 
@@ -31,7 +35,17 @@ function writeNewBountyData(issueUrlId, userOpened, bountyAmount, failCallback) 
     })
 }
 
-function writeNewUserData(ghUsername) {
+function removeOpenBounty(issueHashId) {
+  let openBountiesRef = database.ref('open_bounties')
+  openBountiesRef.child(issueHashId).remove()
+}
+
+function updateBountyOpenStatus(issueHashId, boolValue) {
+  let bountiesRef = database.ref('bounties')
+  bountiesRef.child(issueHashId).child('is_open').set(boolValue)
+}
+
+function addNewUserData(ghUsername) {
   let ref = database.ref('users')
   ref.once('value')
     .then(snapshot => {
@@ -69,6 +83,41 @@ function removeBountyClaim(ghUsername, issueHashId) {
   userClaimedBountiesRef.child(issueHashId).remove()
 }
 
+function addClosedBounty(issueHashId) {
+  let closedBountiesRef = database.ref('closed_bounties')
+  let claimedBountiesRef = database.ref('claimed_bounties')
+  let claimerUsername = ''
+
+  claimedBountiesRef.once('value')
+    .then(claimedSnapshot => {
+      if (claimedSnapshot.child(issueHashId).exists()) {
+        claimerUsername = claimedSnapshot.child(issueHashId).child('username').val()
+
+        closedBountiesRef.once('value')
+          .then(closedSnapshot => {
+            if (!closedSnapshot.child(issueHashId).exists()) {
+              closedBountiesRef.child(issueHashId).set({
+                claimed_by: claimerUsername
+              })
+            }
+          })
+
+        let userBountiesEarnedRef = database.ref('users').child(claimerUsername).child('bounties_earned')
+        userBountiesEarnedRef.once('value')
+          .then(snapshot => {
+            if (!snapshot.child(issueHashId).exists()) {
+              userBountiesEarnedRef.child(issueHashId).set(true)
+            }
+          })
+
+        removeBountyClaim(claimerUsername, issueHashId)
+        removeOpenBountyFromUser(claimerUsername, issueHashId)
+        removeOpenBounty(issueHashId)
+        updateBountyOpenStatus(issueHashId, false)
+      }
+    })
+}
+
 function addTrackBountyToUser(ghUsername, issueHashId) {
   let userTrackedBountiesRef = database.ref('users').child(ghUsername).child("tracked_bounties");
 
@@ -80,21 +129,35 @@ function addTrackBountyToUser(ghUsername, issueHashId) {
     })
 }
 
-function removeTrackBountyToUser(ghUsername, issueHashId) {
+function removeTrackBountyFromUser(ghUsername, issueHashId) {
   let userTrackedBountiesRef = database.ref('users').child(ghUsername).child("tracked_bounties");
   userTrackedBountiesRef.child(issueHashId).remove()
 }
 
-function ifBountyTracked(ghUsername, issueHashId, trueCallback, falseCallback) {
+function removeOpenBountyFromUser(ghUsername, issueHashId) {
+  let userOpenBountiesRef = database.ref('users').child(ghUsername).child('open_bounties')
+  userOpenBountiesRef.child(issueHashId).remove()
+}
+
+
+//-------------------------------------
+//CALLBACKS
+//-------------------------------------
+
+function onBountyTracked(ghUsername, issueHashId, successCallback, failCallback) {
   let userTrackedBountiesRef = database.ref('users').child(ghUsername).child("tracked_bounties");
 
   userTrackedBountiesRef.once('value')
     .then(snapshot => {
       if (snapshot.child(issueHashId).exists()) {
-        trueCallback()
+        if (successCallback) {
+          successCallback()
+        }
       }
       else {
-        falseCallback()
+        if (failCallback) {
+          failCallback()
+        }
       }
     })
 }
@@ -126,6 +189,26 @@ function onCheckUserClaimedBounty(ghUsername, issueHashId, successCallback, fail
         if (successCallback) {
           successCallback()
         }
+      }
+      else {
+        if (failCallback) {
+          failCallback()
+        }
+      }
+    })
+}
+
+function onClaimCanBeAwarded(ghUsername, issueHashId, successCallback, failCallback) {
+  let claimedBountiesRef = database.ref('claimed_bounties')
+
+  claimedBountiesRef.once('value')
+    .then(snapshot => {
+      if (snapshot.child(issueHashId).exists()) {
+        onCheckUserOwnsBounty(ghUsername, issueHashId, () => {
+          if (successCallback) {
+            successCallback()
+          }
+        })
       }
       else {
         if (failCallback) {
