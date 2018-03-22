@@ -18,7 +18,6 @@ function populateIssueDetails(issueJSON, issueId) {
   $.get(issueJSON.comments_url, (response) => {
     $.each(response, (index, value) => {
       var $img = $('<img>').attr('src', value.user.avatar_url)
-      console.log($img)
       var $mediaBody = $('<div>').addClass('media-body container')
       var $mediaHeader = $('<div>').addClass('media-heading').text(value.user.login + ' commented on ' + value.updated_at)
       var $mediaBodyContent = converter.makeHtml(value.body)

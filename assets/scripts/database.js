@@ -1,7 +1,4 @@
 function writeNewBountyData(issueUrlId, userOpened, bountyAmount, failCallback) {
-
-  console.log(issueUrlId + " " + userOpened + " " + bountyAmount)
-
   var issueHashId = getHashFromIssueId(issueUrlId)
   var issuesRef = database.ref('bounties')
 

@@ -1,20 +1,11 @@
 $().ready(() => {
   setupUserAuthentication()
-
-
-
-  // //Database listeners
-  // var userOpenBountiesRef = database.ref('users').child(ghUsername).child('open_bounties')
-  // userOpenBountiesRef.on('child_added', snapshot => {
-  //   var hashId = snapshot.key
-  //
-  //   getIssueIdFromHashId(hashId, appendNewLink)
-  // })
+  setupBountyTables()
 
   //Issue link click handlers
   $(document).on('click', dbSelectors.bountyLink, event => {
     event.preventDefault()
-    gotoBountyDetailPage()
+    gotoBountyDetailPage(event.currentTarget)
   })
 
   $(dbSelectors.btnNewBounty).on('click', event => {
@@ -62,18 +53,57 @@ function setupUserAuthentication() {
   })
 }
 
-function appendNewLink(parentSelector, linkId) {
-  var $link = $('<a href="bounty-info.html" class="issue-text bounty-link" data-issue-id=' + linkId + '>')
-  var $col = $('<div class="col-12 col-md-6 text-truncate my-auto">')
+function setupBountyTables() {
+  var username = window.localStorage.getItem('ghUsername')
+  let userOpenBountiesRef = database.ref('users').child(username).child('open_bounties')
+
+  userOpenBountiesRef.on('child_added', userSnapshot => {
+    let openBountiesRef = database.ref('open_bounties')
+    openBountiesRef
+      .once('value')
+      .then(openBountiesSnapshot => {
+        var hashId = userSnapshot.key
+        var issueVal = openBountiesSnapshot.child(hashId).val()
+        var issueApiUrl = issueVal.issue_url
+        $.get(issueApiUrl, issueResponse => {
+          $.get(issueResponse.comments_url, commentsResponse => {
+            var linkId = getIssueIdFromApiUrl(issueApiUrl)
+            var bountyAmount = issueVal.bounty_amount_posted
+            if ($('.open-bounties-well').children().length <= 0) {
+              appendNewLink('.open-bounties-well', linkId, issueResponse.title, commentsResponse.length, bountyAmount, false)
+            }
+            else {
+              appendNewLink('.open-bounties-well', linkId, issueResponse.title, commentsResponse.length, bountyAmount, true)
+            }
+          })
+        })
+      })
+  })
+}
+
+function appendNewLink(parentSelector, linkId, issueTitle, commentCount, bountyAmount, useSeparator) {
+  var $link = $('<a href="bounty-info.html" class="issue-text bounty-link" data-issue-id=' + linkId + '>').text(issueTitle)
+  var $issueTitleCol = $('<div class="col-12 col-md-6 text-truncate my-auto">')
+  var $commentCountCol = $('<div class="col-6 col-md-4 text-center comment-count my-auto">').text(commentCount + ' Comments')
+  var $bountyAmountCol = $('<div class="col-6 col-md-2 text-center text-price my-auto">').text('$' + bountyAmount)
   var $row = $('<div class="row">')
-  $($col).append($link)
-  $($row).append($col)
+  var $separator = $('<hr class="bg-gray">')
+
+  $($issueTitleCol).append($link)
+  $($row).append($issueTitleCol)
+  $($row).append($commentCountCol)
+  $($row).append($bountyAmountCol)
+
+  if (useSeparator) {
+    $(parentSelector).append($separator)
+  }
+
   $(parentSelector).append($row)
 }
 
-function gotoBountyDetailPage() {
-  let issueId = $(event.currentTarget).data('issue-id');
-  window.location = $(event.currentTarget).attr('href') + '?issueId=' + issueId
+function gotoBountyDetailPage(linkTarget) {
+  let issueId = $(linkTarget).data('issue-id');
+  window.location = $(linkTarget).attr('href') + '?issueId=' + issueId
 }
 
 function showNewBountyModal() {
@@ -116,7 +146,6 @@ function showNewBountyModal() {
     allowOutsideClick: () => !swal.isLoading()
   }).then(function (result) {
     if (result.value) {
-      console.log('here')
       var username = window.localStorage.getItem('ghUsername')
       writeNewBountyData(result.value[0], username, result.value[1], () => {
         swal({
