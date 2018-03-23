@@ -111,7 +111,6 @@ function addClosedBounty (ghusername, issueHashId) {
           })
 
         let userBountiesEarnedRef = database.ref('users').child(claimerUsername).child('bounties_earned')
-        // noinspection BadExpressionStatementJS
         userBountiesEarnedRef.once('value')
           .then(snapshot => {
             if (!snapshot.child(issueHashId).exists()) {
