@@ -1,5 +1,5 @@
 $().ready(() => {
-    setupUserAuthentication()
+  setupUserAuthentication()
   let issueId = getParameterByName('issueId')
   let issueApiUrl = getFullIssueUrlFromId(issueId) + getAuthTokenParameter()
 
@@ -17,7 +17,7 @@ $().ready(() => {
   })
 })
 
-function initPageButtons() {
+function initPageButtons () {
   let username = window.localStorage.getItem('ghUsername')
   let issueHashId = getHashFromIssueId(getParameterByName('issueId'))
 
@@ -47,7 +47,7 @@ function initPageButtons() {
   })
 }
 
-function registerButtonCallbacks() {
+function registerButtonCallbacks () {
   $('#btn-track-bounty').on('click', event => {
     trackBounty()
     $(event.currentTarget).addClass('d-none')
@@ -79,7 +79,7 @@ function registerButtonCallbacks() {
   })
 }
 
-function populateIssueDetails(issueJSON, issueId, bountyAmount) {
+function populateIssueDetails (issueJSON, issueId, bountyAmount) {
   $(biSelectors.bountyTitle).text(issueJSON.title)
   $(biSelectors.issueIdHeader).text(issueId)
   $(biSelectors.curBountyAmount).text('$' + bountyAmount)
@@ -104,33 +104,33 @@ function populateIssueDetails(issueJSON, issueId, bountyAmount) {
   })
 }
 
-function trackBounty() {
+function trackBounty () {
   let issueHashId = getHashFromIssueId(getParameterByName('issueId'))
   let username = window.localStorage.getItem('ghUsername')
   addTrackBountyToUser(username, issueHashId)
 }
 
-function untrackBounty() {
+function untrackBounty () {
   let issueHashId = getHashFromIssueId(getParameterByName('issueId'))
   let username = window.localStorage.getItem('ghUsername')
   removeTrackBountyFromUser(username, issueHashId)
 }
 
-function claimBounty() {
+function claimBounty () {
   let issueHashId = getHashFromIssueId(getParameterByName('issueId'))
   let username = window.localStorage.getItem('ghUsername')
 
   addBountyClaim(username, issueHashId)
 }
 
-function cancelBountyClaim() {
+function cancelBountyClaim () {
   let issueHashId = getHashFromIssueId(getParameterByName('issueId'))
   let username = window.localStorage.getItem('ghUsername')
 
   removeBountyClaim(username, issueHashId)
 }
 
-function approveBountyClaim() {
+function approveBountyClaim () {
   let issueHashId = getHashFromIssueId(getParameterByName('issueId'))
   let username = window.localStorage.getItem('ghUsername')
 
