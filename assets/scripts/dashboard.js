@@ -67,7 +67,8 @@ function setupBountyTable(userSubBountyRef, lookupRef, appendSelector) {
   userSubBountyRef.on('child_removed', userSnapshot => {
     let hashId = userSnapshot.key
     $('#' + hashId).remove()
-    if ($(appendSelector).children().length <= 1) {
+    console.log($(appendSelector).children().length + " " + $(appendSelector).children())
+    if ($(appendSelector).children().length <= 2) {
       $('.nothing-here-row', appendSelector).removeClass('d-none')
     }
   })
