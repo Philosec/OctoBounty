@@ -214,7 +214,7 @@ function onClaimCanBeAwarded (ghUsername, issueHashId, successCallback, failCall
       if (snapshot.child(issueHashId).exists()) {
         onCheckUserOwnsBounty(ghUsername, issueHashId, () => {
           if (successCallback) {
-            successCallback()
+            successCallback(snapshot.child(issueHashId).child('username').val())
           }
         })
       }

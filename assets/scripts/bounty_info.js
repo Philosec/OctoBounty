@@ -25,8 +25,9 @@ function initPageButtons () {
     onCheckUserOwnsBounty(username, issueHashId, () => {
       $('.bounty-owned-btn-row').removeClass('d-none')
 
-      onClaimCanBeAwarded(username, issueHashId, () => {
+      onClaimCanBeAwarded(username, issueHashId, (claimerUsername) => {
         $('#btn-approve-claim').removeClass('d-none')
+        $('#btn-approve-claim').text('Approve (' + claimerUsername + ") Claim")
       }, () => {
         $('#btn-no-claim').removeClass('d-none')
       })
