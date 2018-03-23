@@ -21,28 +21,30 @@ function initPageButtons() {
   let username = window.localStorage.getItem('ghUsername')
   let issueHashId = getHashFromIssueId(getParameterByName('issueId'))
 
-  onCheckUserOwnsBounty(username, issueHashId, () => {
-    $('.bounty-owned-btn-row').removeClass('d-none')
+  onBountyActive(issueHashId,()=>{
+    onCheckUserOwnsBounty(username, issueHashId, () => {
+      $('.bounty-owned-btn-row').removeClass('d-none')
 
-    onClaimCanBeAwarded(username, issueHashId, () => {
-      $('#btn-approve-claim').removeClass('d-none')
+      onClaimCanBeAwarded(username, issueHashId, () => {
+        $('#btn-approve-claim').removeClass('d-none')
+      }, () => {
+        $('#btn-no-claim').removeClass('d-none')
+      })
+
     }, () => {
-      $('#btn-no-claim').removeClass('d-none')
-    })
+      $('.bounty-not-owned-btn-row').removeClass('d-none')
 
-  }, () => {
-    $('.bounty-not-owned-btn-row').removeClass('d-none')
+      onCheckUserClaimedBounty(username, issueHashId, () => {
+        $('#btn-cancel-claim').removeClass('d-none')
+      }, () => {
+        $('#btn-claim-bounty').removeClass('d-none')
+      })
 
-    onCheckUserClaimedBounty(username, issueHashId, () => {
-      $('#btn-cancel-claim').removeClass('d-none')
-    }, () => {
-      $('#btn-claim-bounty').removeClass('d-none')
-    })
-
-    onBountyTracked(username, issueHashId, () => {
-      $('#btn-untrack-bounty').removeClass('d-none')
-    }, () => {
-      $('#btn-track-bounty').removeClass('d-none')
+      onBountyTracked(username, issueHashId, () => {
+        $('#btn-untrack-bounty').removeClass('d-none')
+      }, () => {
+        $('#btn-track-bounty').removeClass('d-none')
+      })
     })
   })
 }
