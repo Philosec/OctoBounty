@@ -139,7 +139,7 @@ pre,
   /*max-width: 100%;*/
 }
 
-/*CARDS*/
+/*DASHBOARD*/
 
 .card-header {
   padding-top: 5px;
@@ -167,6 +167,12 @@ pre,
 
 .text-price {
   font-size: 1.4rem;
+}
+
+.top-border-gray {
+  border-top: 1px solid gray;
+  margin-top: 10px;
+  padding-top: 10px;
 }
 
 /*COMMENTS*/
