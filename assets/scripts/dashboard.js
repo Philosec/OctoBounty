@@ -43,9 +43,9 @@ function setupBountyTable(userSubBountyRef, lookupRef, appendSelector) {
   userSubBountyRef.on('child_added', userSnapshot => {
     $('.nothing-here-row', appendSelector).addClass('d-none')
     lookupRef.once('value')
-      .then(openBountiesSnapshot => {
+      .then(lookupRefSnapshot => {
         let hashId = userSnapshot.key
-        let issueVal = openBountiesSnapshot.child(hashId).val()
+        let issueVal = lookupRefSnapshot.child(hashId).val()
         let issueApiUrl = issueVal.issue_url
 
         $.get(issueApiUrl + getAuthTokenParameter(), issueResponse => {
@@ -54,23 +54,31 @@ function setupBountyTable(userSubBountyRef, lookupRef, appendSelector) {
             let linkId = getIssueIdFromApiUrl(issueApiUrl)
             let bountyAmount = issueVal.bounty_amount_posted
             if ($(appendSelector).children().length <= 1) {
-              appendNewLink(appendSelector, linkId, issueResponse.title, commentsResponse.length, bountyAmount, false)
+              appendNewLink(appendSelector, linkId, issueResponse.title, commentsResponse.length, bountyAmount, false, hashId)
             }
             else {
-              appendNewLink(appendSelector, linkId, issueResponse.title, commentsResponse.length, bountyAmount, true)
+              appendNewLink(appendSelector, linkId, issueResponse.title, commentsResponse.length, bountyAmount, true, hashId)
             }
           })
         })
       })
   })
+
+  userSubBountyRef.on('child_removed', userSnapshot => {
+    let hashId = userSnapshot.key
+    $('#' + hashId).remove()
+    if ($(appendSelector).children().length <= 1) {
+      $('.nothing-here-row', appendSelector).removeClass('d-none')
+    }
+  })
 }
 
-function appendNewLink(parentSelector, linkId, issueTitle, commentCount, bountyAmount, useSeparator) {
+function appendNewLink(parentSelector, linkId, issueTitle, commentCount, bountyAmount, useSeparator, hashId) {
   let $link = $('<a href="bounty-info.html" class="issue-text bounty-link" data-issue-id=' + linkId + '>').text(issueTitle)
   let $issueTitleCol = $('<div class="col-12 col-md-6 text-truncate my-auto">')
   let $commentCountCol = $('<div class="col-6 col-md-4 text-center comment-count my-auto">').text(commentCount + ' Comments')
   let $bountyAmountCol = $('<div class="col-6 col-md-2 text-center text-price my-auto">').text('$' + bountyAmount)
-  let $row = $('<div class="row">')
+  let $row = $('<div class="row" id=' + hashId + '>')
   let $separator = $('<hr class="bg-gray">')
 
   $($issueTitleCol).append($link)
