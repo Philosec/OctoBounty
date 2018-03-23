@@ -53,7 +53,7 @@ function setupBountyTable(userSubBountyRef, lookupRef, appendSelector) {
           $.get(commentApiUrl, commentsResponse => {
             let linkId = getIssueIdFromApiUrl(issueApiUrl)
             let bountyAmount = issueVal.bounty_amount_posted
-            if ($(appendSelector).children().length <= 1) {
+            if ($(appendSelector).children('.issue-link-row').length <= 0) {
               appendNewLink(appendSelector, linkId, issueResponse.title, commentsResponse.length, bountyAmount, false, hashId)
             }
             else {
@@ -66,12 +66,19 @@ function setupBountyTable(userSubBountyRef, lookupRef, appendSelector) {
 
   userSubBountyRef.on('child_removed', userSnapshot => {
     let hashId = userSnapshot.key
-    $('#' + hashId).remove()
-    console.log($(appendSelector).children().length + " " + $(appendSelector).children())
-    if ($(appendSelector).children().length <= 2) {
-      $('.nothing-here-row', appendSelector).removeClass('d-none')
+    $('#' + hashId, appendSelector).remove()
+    if ($(appendSelector).children('.issue-link-row').length <= 0) {
+      $(appendSelector).children('.nothing-here-row').removeClass('d-none')
     }
   })
+}
+
+function tryRenderEmptyTableMessages() {
+  console.log('.tracked-bounties-well ' + $('.tracked-bounties-well').children('.issue-link-row').length)
+  console.log('.open-bounties-well ' + $('.open-bounties-well').children('.issue-link-row').length)
+  console.log('.claimed-bounties-well ' + $('.claimed-bounties-well').children('.issue-link-row').length)
+  console.log('.earned-bounties-well ' + $('.earned-bounties-well').children('.issue-link-row').length)
+  console.log('.paid-bounties-well ' + $('.paid-bounties-well').children('.issue-link-row').length)
 }
 
 function appendNewLink(parentSelector, linkId, issueTitle, commentCount, bountyAmount, useSeparator, hashId) {
@@ -79,8 +86,7 @@ function appendNewLink(parentSelector, linkId, issueTitle, commentCount, bountyA
   let $issueTitleCol = $('<div class="col-12 col-md-6 text-truncate my-auto">')
   let $commentCountCol = $('<div class="col-6 col-md-4 text-center comment-count my-auto">').text(commentCount + ' Comments')
   let $bountyAmountCol = $('<div class="col-6 col-md-2 text-center text-price my-auto">').text('$' + bountyAmount)
-  let $row = $('<div class="row" id=' + hashId + '>')
-  let $separator = $('<hr class="bg-gray">')
+  let $row = $('<div class="row issue-link-row" id=' + hashId + '>')
 
   $($issueTitleCol).append($link)
   $($row).append($issueTitleCol)
@@ -88,7 +94,7 @@ function appendNewLink(parentSelector, linkId, issueTitle, commentCount, bountyA
   $($row).append($bountyAmountCol)
 
   if (useSeparator) {
-    $(parentSelector).append($separator)
+    $($row).addClass('top-border-gray')
   }
 
   $(parentSelector).append($row)
