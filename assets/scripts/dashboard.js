@@ -62,6 +62,7 @@ function setupUserAuthentication() {
     if (user) {
       activeUser = user
       $('#btn-profile').html('<img src="' + activeUser.photoURL + '" class="rounded-circle">')
+        $('.display-name').text(window.localStorage.getItem("ghUsername"))
     }
   })
 
