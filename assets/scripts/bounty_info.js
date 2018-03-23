@@ -1,4 +1,5 @@
 $().ready(() => {
+    setupUserAuthentication()
   let issueId = getParameterByName('issueId')
   let issueApiUrl = getFullIssueUrlFromId(issueId) + getAuthTokenParameter()
 
