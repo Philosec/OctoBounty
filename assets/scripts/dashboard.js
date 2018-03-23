@@ -20,7 +20,7 @@ $().ready(() => {
   let userClaimedBountiesRef = database.ref('users').child(username).child('claimed_bounties')
   setupBountyTable(userClaimedBountiesRef, allBountiesRef, '.claimed-bounties-well')
 
-  let userEarnedBountiesRef = database.ref('users').child(username).child('earned_bounties')
+  let userEarnedBountiesRef = database.ref('users').child(username).child('bounties_earned')
   setupBountyTable(userEarnedBountiesRef, allBountiesRef, '.earned-bounties-well')
 
   let userClosedBountiesRef = database.ref('users').child(username).child('closed_bounties')
