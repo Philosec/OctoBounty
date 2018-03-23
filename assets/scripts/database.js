@@ -122,6 +122,7 @@ function addClosedBounty (ghusername, issueHashId) {
         removeBountyClaim(claimerUsername, issueHashId)
         removeOpenBountyFromUser(ghusername, issueHashId)
         removeOpenBounty(issueHashId)
+        removeTrackBountyFromUser(claimerUsername,issueHashId)
         updateBountyOpenStatus(issueHashId, false)
       }
     })
