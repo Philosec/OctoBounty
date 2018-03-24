@@ -1,12 +1,44 @@
 $().ready(() => {
   setupUserAuthentication()
+  initBountyTables()
+  initClickHandlers()
+  setupUserStatCircles()
+})
 
-  $('.nothing-here-row', '.tracked-bounties-well').removeClass('d-none')
-  $('.nothing-here-row', '.open-bounties-well').removeClass('d-none')
-  $('.nothing-here-row', '.claimed-bounties-well').removeClass('d-none')
-  $('.nothing-here-row', '.earned-bounties-well').removeClass('d-none')
-  $('.nothing-here-row', '.paid-bounties-well').removeClass('d-none')
+function setupUserStatCircles() {
+  let ghUsername = window.localStorage.getItem('ghUsername')
+  getTotalUserOpenedBounties(ghUsername, value => {
+    $('.num-bounties-issued-circle').text(abbreviateNumber(value))
+  })
 
+  getTotalUserEarnedBounties(ghUsername, value => {
+    $('.num-bounties-earned-circle').text(abbreviateNumber(value))
+  })
+
+  getTotalAmountPaid(ghUsername, value => {
+    $('.amount-bounties-paid-circle').text(abbreviateNumber(value))
+  })
+
+  getTotalAmountEarned(ghUsername, value => {
+    $('.amount-bounties-earned-circle').text(abbreviateNumber(value))
+  })
+}
+
+function initClickHandlers () {
+  //Issue link click handlers
+  $(document).on('click', dbSelectors.bountyLink, event => {
+    event.preventDefault()
+    gotoBountyDetailPage(event.currentTarget)
+  })
+
+  //Button click handlers
+  $(dbSelectors.btnNewBounty).on('click', event => {
+    event.preventDefault()
+    showNewBountyModal()
+  })
+}
+
+function initBountyTables () {
   let username = window.localStorage.getItem('ghUsername')
 
   let userOpenBountiesRef = database.ref('users').child(username).child('open_bounties')
@@ -26,20 +58,50 @@ $().ready(() => {
   let userClosedBountiesRef = database.ref('users').child(username).child('closed_bounties')
   setupBountyTable(userClosedBountiesRef, allBountiesRef, '.paid-bounties-well')
 
-  //Issue link click handlers
-  $(document).on('click', dbSelectors.bountyLink, event => {
-    event.preventDefault()
-    gotoBountyDetailPage(event.currentTarget)
+  let claimedBountiesRef = database.ref('claimed_bounties')
+  claimedBountiesRef.on('child_added', claimedSnapshot => {
+    allBountiesRef.once('value')
+      .then(bountiesSnapshot => {
+        let loggedInUsername = window.localStorage.getItem('ghUsername')
+        let isOwned = false
+        bountiesSnapshot.forEach(childSnapshot => {
+          if (childSnapshot.val().user_opened === loggedInUsername) {
+            isOwned = true
+          }
+        })
+
+        if (isOwned) {
+          $('.nothing-here-row', '.waiting-approval-well').addClass('d-none')
+          let hashId = claimedSnapshot.key
+          let issueVal = bountiesSnapshot.child(hashId).val()
+          let issueApiUrl = issueVal.issue_url
+
+          $.get(issueApiUrl + getAuthTokenParameter(), issueResponse => {
+            let commentApiUrl = issueResponse.comments_url + getAuthTokenParameter()
+            $.get(commentApiUrl, commentsResponse => {
+              let linkId = getIssueIdFromApiUrl(issueApiUrl)
+              let bountyAmount = issueVal.bounty_amount_posted
+              if ($('.waiting-approval-well').children('.issue-link-row').length <= 0) {
+                appendNewLink('.waiting-approval-well', linkId, issueResponse.title, commentsResponse.length, bountyAmount, false, hashId)
+              }
+              else {
+                appendNewLink('.waiting-approval-well', linkId, issueResponse.title, commentsResponse.length, bountyAmount, true, hashId)
+              }
+            })
+          })
+        }
+      })
   })
-
-  $(dbSelectors.btnNewBounty).on('click', event => {
-    event.preventDefault()
-    showNewBountyModal()
+  claimedBountiesRef.on('child_removed', claimedSnapshot => {
+    let hashId = claimedSnapshot.key
+    $('#' + hashId, appendSelector).remove()
+    if ($('.waiting-approval-well').children('.issue-link-row').length <= 0) {
+      $('.waiting-approval-well').children('.nothing-here-row').removeClass('d-none')
+    }
   })
-})
+}
 
-
-function setupBountyTable(userSubBountyRef, lookupRef, appendSelector) {
+function setupBountyTable (userSubBountyRef, lookupRef, appendSelector) {
   userSubBountyRef.on('child_added', userSnapshot => {
     $('.nothing-here-row', appendSelector).addClass('d-none')
     lookupRef.once('value')
@@ -63,7 +125,6 @@ function setupBountyTable(userSubBountyRef, lookupRef, appendSelector) {
         })
       })
   })
-
   userSubBountyRef.on('child_removed', userSnapshot => {
     let hashId = userSnapshot.key
     $('#' + hashId, appendSelector).remove()
@@ -73,7 +134,7 @@ function setupBountyTable(userSubBountyRef, lookupRef, appendSelector) {
   })
 }
 
-function tryRenderEmptyTableMessages() {
+function tryRenderEmptyTableMessages () {
   console.log('.tracked-bounties-well ' + $('.tracked-bounties-well').children('.issue-link-row').length)
   console.log('.open-bounties-well ' + $('.open-bounties-well').children('.issue-link-row').length)
   console.log('.claimed-bounties-well ' + $('.claimed-bounties-well').children('.issue-link-row').length)
@@ -81,7 +142,7 @@ function tryRenderEmptyTableMessages() {
   console.log('.paid-bounties-well ' + $('.paid-bounties-well').children('.issue-link-row').length)
 }
 
-function appendNewLink(parentSelector, linkId, issueTitle, commentCount, bountyAmount, useSeparator, hashId) {
+function appendNewLink (parentSelector, linkId, issueTitle, commentCount, bountyAmount, useSeparator, hashId) {
   let $link = $('<a href="bounty-info.html" class="issue-text bounty-link" data-issue-id=' + linkId + '>').text(issueTitle)
   let $issueTitleCol = $('<div class="col-12 col-md-6 text-truncate my-auto">')
   let $commentCountCol = $('<div class="col-6 col-md-4 text-center comment-count my-auto">').text(commentCount + ' Comments')
@@ -100,12 +161,12 @@ function appendNewLink(parentSelector, linkId, issueTitle, commentCount, bountyA
   $(parentSelector).append($row)
 }
 
-function gotoBountyDetailPage(linkTarget) {
-  let issueId = $(linkTarget).data('issue-id');
+function gotoBountyDetailPage (linkTarget) {
+  let issueId = $(linkTarget).data('issue-id')
   window.location = $(linkTarget).attr('href') + '?issueId=' + issueId
 }
 
-function showNewBountyModal() {
+function showNewBountyModal () {
   swal({
     background: 'var(--dark)',
     html:

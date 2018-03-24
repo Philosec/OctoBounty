@@ -241,3 +241,91 @@ function onBountyActive (issueHashId, successCallback, failCallback) {
       }
     })
 }
+
+//-------------------------------------
+//Get Callbacks
+//-------------------------------------
+
+function getTotalUserOpenedBounties(ghUsername, callback) {
+  let userOwnedBountiesRef = database.ref('users').child(ghUsername).child('owned_bounties')
+  userOwnedBountiesRef.on('value', snapshot => {
+    if (snapshot.val() === null) {
+      if (callback) {
+        callback(0)
+      }
+    }
+    else {
+      if (callback) {
+        callback(Object.keys(snapshot.val()).length)
+      }
+    }
+  })
+}
+
+function getTotalUserEarnedBounties(ghUsername, callback) {
+  let userEarnedBountiesRef = database.ref('users').child(ghUsername).child('bounties_earned')
+  userEarnedBountiesRef.on('value', snapshot => {
+    if (snapshot.val() === null) {
+      if (callback) {
+        callback(0)
+      }
+    }
+    else {
+      if (callback) {
+        callback(Object.keys(snapshot.val()).length)
+      }
+    }
+  })
+}
+
+function getTotalAmountPaid(ghUsername, callback) {
+  let userClosedBountiesRef = database.ref('users').child(ghUsername).child('closed_bounties')
+  let bountiesRef = database.ref('bounties')
+
+  userClosedBountiesRef.on('value', userClosedSnapshot => {
+    if (userClosedSnapshot.val() === null) {
+      if (callback) {
+        callback(0)
+      }
+    }
+    else {
+      bountiesRef.once('value')
+        .then(bountiesSnapshot => {
+          let amountPaid = 0
+          userClosedSnapshot.forEach(childUserEarnedSnapshot => {
+            amountPaid += parseInt(bountiesSnapshot.child(childUserEarnedSnapshot.key).val().bounty_amount_posted)
+          })
+
+          if (callback) {
+            callback(amountPaid)
+          }
+        })
+    }
+  })
+}
+
+function getTotalAmountEarned(ghUsername, callback) {
+  let userEarnedBountiesRef = database.ref('users').child(ghUsername).child('bounties_earned')
+  let bountiesRef = database.ref('bounties')
+
+  userEarnedBountiesRef.on('value', userEarnedSnapshot => {
+    if (userEarnedSnapshot.val() === null) {
+      if (callback) {
+        callback(0)
+      }
+    }
+    else {
+      bountiesRef.once('value')
+        .then(bountiesSnapshot => {
+          let amountPaid = 0
+          userEarnedSnapshot.forEach(childUserEarnedSnapshot => {
+            amountPaid += parseInt(bountiesSnapshot.child(childUserEarnedSnapshot.key).val().bounty_amount_posted)
+          })
+
+          if (callback) {
+            callback(amountPaid)
+          }
+        })
+    }
+  })
+}

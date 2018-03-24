@@ -21,13 +21,14 @@ function initPageButtons () {
   let username = window.localStorage.getItem('ghUsername')
   let issueHashId = getHashFromIssueId(getParameterByName('issueId'))
 
-  onBountyActive(issueHashId,()=>{
+  onBountyActive(issueHashId, () => {
+    $('.current-bounty-heading').text('Current Bounty')
     onCheckUserOwnsBounty(username, issueHashId, () => {
       $('.bounty-owned-btn-row').removeClass('d-none')
 
       onClaimCanBeAwarded(username, issueHashId, (claimerUsername) => {
         $('#btn-approve-claim').removeClass('d-none')
-        $('#btn-approve-claim').text('Approve (' + claimerUsername + ") Claim")
+        $('#btn-approve-claim').text('Approve (' + claimerUsername + ') Claim')
       }, () => {
         $('#btn-no-claim').removeClass('d-none')
       })
@@ -47,6 +48,8 @@ function initPageButtons () {
         $('#btn-track-bounty').removeClass('d-none')
       })
     })
+  }, () => {
+    $('.current-bounty-heading').text('Paid Bounty')
   })
 }
 
@@ -79,13 +82,20 @@ function registerButtonCallbacks () {
     event.preventDefault()
     approveBountyClaim()
     $('.bounty-owned-btn-row').addClass('d-none')
+    $('.current-bounty-heading').text('Paid Bounty')
   })
 }
 
 function populateIssueDetails (issueJSON, issueId, bountyAmount) {
+  let numAnim = new CountUp(document.querySelector(biSelectors.curBountyAmount), 0, bountyAmount, 0, 4, {prefix: '$'})
+  if (!numAnim.error) {
+    numAnim.start()
+  } else {
+    console.error(numAnim.error)
+  }
+
   $(biSelectors.bountyTitle).text(issueJSON.title)
   $(biSelectors.issueIdHeader).text(issueId)
-  $(biSelectors.curBountyAmount).text('$' + bountyAmount)
 
   let descriptionHTML = converter.makeHtml(issueJSON.body)
   $(biSelectors.issueDescription).html(descriptionHTML)
