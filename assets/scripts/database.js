@@ -36,13 +36,17 @@ function addNewBountyData (issueUrlId, userOpened, bountyAmount, failCallback) {
 }
 
 function addProfileKeyValue (ghUsername, key, value) {
-  let userPersonalInfoRef = database.ref('users').child(ghUsername).child('personal_info')
-  userPersonalInfoRef.child(key).set(value)
+  if (value !== '') {
+    let userPersonalInfoRef = database.ref('users').child(ghUsername).child('personal_info')
+    userPersonalInfoRef.child(key).set(value)
+  }
 }
 
 function addCardInfoKeyValue (ghUsername, key, value) {
-  let userPersonalInfoRef = database.ref('users').child(ghUsername).child('card_info')
-  userPersonalInfoRef.child(key).set(value)
+  if (value !== '') {
+    let userPersonalInfoRef = database.ref('users').child(ghUsername).child('card_info')
+    userPersonalInfoRef.child(key).set(value)
+  }
 }
 
 function removeOpenBounty (issueHashId) {
@@ -252,6 +256,75 @@ function onBountyActive (issueHashId, successCallback, failCallback) {
     })
 }
 
+function onPersonalInfoExists (ghUsername, successCallback, failCallback) {
+  let userPersonalInfoRef = database.ref('users').child(ghUsername).child('personal_info')
+  userPersonalInfoRef.once('value')
+    .then(userPersonalInfoSnapshot, () => {
+      let exists = true
+      if (!userPersonalInfoSnapshot.child('first_name').exists() || userPersonalInfoSnapshot.child('first_name').val() === '') {
+        exists = false
+      }
+      if (!userPersonalInfoSnapshot.child('last_name').exists() || userPersonalInfoSnapshot.child('last_name').val() === '') {
+        exists = false
+      }
+      if (!userPersonalInfoSnapshot.child('street_address').exists() || userPersonalInfoSnapshot.child('street_address').val() === '') {
+        exists = false
+      }
+      if (!userPersonalInfoSnapshot.child('apt_suite').exists() || userPersonalInfoSnapshot.child('apt_suite').val() === '') {
+        exists = false
+      }
+      if (!userPersonalInfoSnapshot.child('city').exists() || userPersonalInfoSnapshot.child('city').val() === '') {
+        exists = false
+      }
+      if (!userPersonalInfoSnapshot.child('state').exists() || userPersonalInfoSnapshot.child('state').val() === '') {
+        exists = false
+      }
+      if (!userPersonalInfoSnapshot.child('zip').exists() || userPersonalInfoSnapshot.child('zip').val() === '') {
+        exists = false
+      }
+      if (exists) {
+        if (successCallback) {
+          successCallback()
+        }
+      } else {
+        if (failCallback) {
+          failCallback()
+        }
+      }
+    })
+}
+
+function onCardInfoExists (ghUsername, successCallback, failCallback) {
+  let userCardInfoRef = database.ref('users').child(ghUsername).child('card_info')
+  userCardInfoRef.once('value')
+    .then(cardInfoSnapshot, () => {
+      let exists = true
+      if (!cardInfoSnapshot.child('name_on_card').exists() || cardInfoSnapshot.child('name_on_card').val() === '') {
+        exists = false
+      }
+      if (!cardInfoSnapshot.child('card_number').exists() || cardInfoSnapshot.child('card_number').val() === '') {
+        exists = false
+      }
+      if (!cardInfoSnapshot.child('exp_month').exists() || cardInfoSnapshot.child('exp_month').val() === '') {
+        exists = false
+      }
+      if (!cardInfoSnapshot.child('exp_year').exists() || cardInfoSnapshot.child('exp_year').val() === '') {
+        exists = false
+      }
+      if (!cardInfoSnapshot.child('csv').exists() || cardInfoSnapshot.child('csv').val() === '') {
+        exists = false
+      }
+      if (exists) {
+        if (successCallback) {
+          successCallback()
+        }
+      } else {
+        if (failCallback) {
+          failCallback()
+        }
+      }
+    })
+}
 //-------------------------------------
 //Get Callbacks
 //-------------------------------------

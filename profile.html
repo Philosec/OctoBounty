@@ -57,12 +57,13 @@
                   </div>
                 </div>
                 <div class="form-group">
-                  <label for="inputAddress">Address</label>
-                  <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St">
+                  <label for="input-street-address">Address</label>
+                  <input type="text" class="form-control" id="input-street-address" placeholder="1234 Main St">
                 </div>
                 <div class="form-group">
-                  <label for="inputAddress2">Address 2</label>
-                  <input type="text" class="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor">
+                  <label for="input-apt-suite">Apt/Suite</label>
+                  <input type="text" class="form-control" id="input-apt-suite"
+                         placeholder="Apartment, studio, or floor">
                 </div>
                 <div class="form-row">
                   <div class="form-group col-md-6">
@@ -72,7 +73,7 @@
                   <div class="form-group col-md-4">
                     <label for="inputState">State</label>
                     <select id="inputState" class="form-control">
-                      <option selected>Choose...</option>
+                      <option selected></option>
                       <option value="AL">Alabama</option>
                       <option value="AK">Alaska</option>
                       <option value="AZ">Arizona</option>
@@ -139,17 +140,18 @@
               <hr class="bg-dark">
               <form>
                 <div class="form-group">
-                  <label for="inputAddress">Name on Card</label>
+                  <label for="inputNameOnCard">Name on Card</label>
                   <input type="text" class="form-control" id="inputNameOnCard" placeholder="Full Name">
                 </div>
                 <div class="form-group">
-                  <label for="inputAddress2">Card Number</label>
+                  <label for="inputCardNumber">Card Number</label>
                   <input type="text" class="form-control" id="inputCardNumber" placeholder="XXXX-XXXX-XXXX-XXXX">
                 </div>
                 <div class="form-row">
                   <div class="form-group col-md-4">
                     <label for="inputExpMonth">Exp. Month</label>
                     <select class="form-control" id="inputExpMonth">
+                      <option selected></option>
                       <option>01</option>
                       <option>02</option>
                       <option>03</option>
@@ -167,6 +169,7 @@
                   <div class="form-group col-md-4">
                     <label for="inputExpYear">Exp. Year</label>
                     <select id="inputExpYear" class="form-control">
+                      <option selected></option>
                       <option>2018</option>
                       <option>2019</option>
                       <option>2020</option>
@@ -180,50 +183,49 @@
                     </select>
                   </div>
                   <div class="form-group col-md-4">
-                    <label for="inputExpYear">CSV</label>
-                    <input type="text" id="csvInput" class="form-control"placeholder="123" >
+                    <label for="csvInput">CSV</label>
+                    <input type="text" id="csvInput" class="form-control" placeholder="123">
                   </div>
                 </div>
             </div>
           </div>
           <div class="row">
-              <div class="col d-flex">
-                <button class="btn btn-secondary mx-auto my-auto">Save</button>
-              </div>
+            <div class="col d-flex">
+              <button id="btn-save-profile" class="btn btn-secondary mx-auto my-auto">Save</button>
             </div>
           </div>
         </div>
-
       </div>
-    </div>
-    <section class="pt-3">
-      <div class="card">
-        <h4 class="card-header text-center">Transaction History</h4>
-        <div class="card-body">
-          <div class="container">
 
-          </div>
-          <div class="search-bounties-well pt-2">
-            <table class="table">
-              <thead>
-              <tr>
-                <th scope="col">Date</th>
-                <th scope="col">Transaction Type</th>
-                <th scope="col">Issue Title</th>
-                <th scope="col">Amount</th>
-              </tr>
-              </thead>
-              <tbody class="table">
-              </tbody>
-            </table>
-          </div>
+    </div>
+  </section>
+  <section class="pt-3">
+    <div class="card">
+      <h4 class="card-header text-center">Transaction History</h4>
+      <div class="card-body">
+        <div class="container">
+
+        </div>
+        <div class="search-bounties-well pt-2">
+          <table class="table">
+            <thead>
+            <tr>
+              <th scope="col">Date</th>
+              <th scope="col">Transaction Type</th>
+              <th scope="col">Issue Title</th>
+              <th scope="col">Amount</th>
+            </tr>
+            </thead>
+            <tbody class="table">
+            </tbody>
+          </table>
         </div>
       </div>
-    </section>
+    </div>
+  </section>
 </div>
-
-
-
+</body>
+</html>
 
 
 <!--jQuery-->
@@ -245,7 +247,7 @@
 <script src="assets/scripts/utils.js"></script>
 <script src="assets/scripts/authentication.js"></script>
 <script src="assets/scripts/database.js"></script>
-<script src="assets/scripts/bounty_info.js"></script>
+<script src="assets/scripts/profile.js"></script>
 </body>
 
 </html>
