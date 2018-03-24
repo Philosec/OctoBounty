@@ -1,4 +1,4 @@
-function setupUserAuthentication () {
+function setupUserAuthentication (successCallback, failCallback) {
   let activeUser = null
 
   firebase.auth().getRedirectResult().then(function (result) {
@@ -23,6 +23,14 @@ function setupUserAuthentication () {
       activeUser = user
       $('#btn-profile').html('<img src="' + activeUser.photoURL + '" class="rounded-circle">')
       $('.display-name').text(window.localStorage.getItem('ghUsername'))
+      if (successCallback) {
+        successCallback()
+      }
+    }
+    else {
+      if (failCallback) {
+        failCallback()
+      }
     }
   })
 
