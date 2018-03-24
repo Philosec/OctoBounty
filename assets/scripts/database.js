@@ -65,7 +65,10 @@ function addNewUserData (ghUsername) {
     .then(snapshot => {
       if (!snapshot.child(ghUsername).exists()) {
         let userRef = database.ref('users')
-        userRef.child(ghUsername).set(true)
+        userRef.child(ghUsername).set({
+          personal_info: true,
+          card_info:true
+        })
       }
     })
 }
@@ -258,8 +261,9 @@ function onBountyActive (issueHashId, successCallback, failCallback) {
 
 function onPersonalInfoExists (ghUsername, successCallback, failCallback) {
   let userPersonalInfoRef = database.ref('users').child(ghUsername).child('personal_info')
+
   userPersonalInfoRef.once('value')
-    .then(userPersonalInfoSnapshot, () => {
+    .then(userPersonalInfoSnapshot => {
       let exists = true
       if (!userPersonalInfoSnapshot.child('first_name').exists() || userPersonalInfoSnapshot.child('first_name').val() === '') {
         exists = false
@@ -297,7 +301,7 @@ function onPersonalInfoExists (ghUsername, successCallback, failCallback) {
 function onCardInfoExists (ghUsername, successCallback, failCallback) {
   let userCardInfoRef = database.ref('users').child(ghUsername).child('card_info')
   userCardInfoRef.once('value')
-    .then(cardInfoSnapshot, () => {
+    .then(cardInfoSnapshot => {
       let exists = true
       if (!cardInfoSnapshot.child('name_on_card').exists() || cardInfoSnapshot.child('name_on_card').val() === '') {
         exists = false

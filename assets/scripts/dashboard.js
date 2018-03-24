@@ -183,6 +183,7 @@ function showNewBountyModal () {
     preConfirm: function () {
       return new Promise((resolve) => {
         let issueId = getIssueIdFromUrl($('#issue-url-input').val())
+        let username = window.localStorage.getItem('ghUsername')
         let bountyOffered = $('#bounty-offered-input').val()
         let issueApiUrl = getFullIssueUrlFromId(issueId) + getAuthTokenParameter()
 
@@ -191,15 +192,35 @@ function showNewBountyModal () {
           resolve()
         }
         else {
-          setTimeout(() => {
-            //Validate and pass the api URL and show message on fail
-            $.get(issueApiUrl, (response) => {
-              resolve([issueId, bountyOffered])
-            }).fail(() => {
-              swal.showValidationError('Issue URL is not valid.')
+          onPersonalInfoExists(username, () => {
+            onCardInfoExists(username, () => {
+              setTimeout(() => {
+                //Validate and pass the api URL and show message on fail
+                $.get(issueApiUrl, (response) => {
+                  resolve([issueId, bountyOffered])
+                }).fail(() => {
+                  swal.showValidationError('Issue URL is not valid.')
+                  resolve()
+                })
+              }, 1500)
+            }, () => {
+              swal({
+                background: 'var(--dark)',
+                html: '<h4 class="text-center text-light mt-0">Billing information not on file.</h4>',
+                type: 'error'
+              }).then(() => {
+                resolve()
+              })
+            })
+          }, () => {
+            swal({
+              background: 'var(--dark)',
+              html: '<h4 class="text-center text-light mt-0">Billing information not on file.</h4>',
+              type: 'error'
+            }).then(() => {
               resolve()
             })
-          }, 2000)
+          })
         }
       })
     },
