@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OctoBounty</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap.min.css">
+  <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.css">
+  <!--TODO: remove bootstrap hard reference-->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,600">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito">
+  <link rel="stylesheet" href="assets/css/bootstrap_dark_theme.css">
+  <link rel="stylesheet" href="assets/css/main.css">
+
+  <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"
+          integrity="sha384-SlE991lGASHoBfWbelyBPLsUlwY1GwNDJo3jSJO04KZ33K2bwfV9YBauFfnzvynJ"
+          crossorigin="anonymous"></script>
+</head>
+
+<body>
+<div class="container">
+  <header>
+    <div class="row">
+      <div class="col-2 d-flex pl-1 pr-1"><a
+        class="btn btn-outline-light btn-sm d-flex mx-auto my-auto btn-circle p-1"
+        role="button" href="dashboard.html"><i class="fas fa-home mx-auto my-auto"></i></a>
+      </div>
+      <div class="col-8 p-0 d-flex">
+        <h2 class="bounty-title text-center mx-auto my-auto"></h2>
+      </div>
+      <div class="col-2 d-flex pl-1 pr-1"><a
+        class="btn btn-outline-light btn-sm d-flex mx-auto my-auto btn-circle p-1"
+        id="btn-profile" role="button" href="#"><i class="fas fa-user my-auto mx-auto"></i></a>
+      </div>
+    </div>
+  </header>
+  <hr>
+
+  <div class="row">
+    <div class="col pt-2">
+      <h4 class="text-truncate text-center issue-id-header text-gray"></h4>
+    </div>
+  </div>
+
+  <section>
+    <div class="row">
+      <div class="col pt-3 text-center">
+        <h1 class="text-truncate font-weight-bold current-bounty-heading"></h1>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col pt-1 text-center">
+        <h1 class="text-truncate font-weight-bold text-success current-bounty-amount"></h1>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="row bounty-owned-btn-row d-none">
+      <div class="col btn-col">
+        <button class="btn btn-primary btn-block btn-lg btn-shadow mt-0" type="button" id="btn-cancel-bounty">Cancel
+          Bounty
+        </button>
+      </div>
+      <div class="col btn-col">
+        <button class="btn btn-dark rounded-0 disabled btn-block btn-lg btn-shadow mt-0 d-none" type="button"
+                id="btn-no-claim">No Claim
+        </button>
+        <button class="btn btn-secondary btn-block btn-lg btn-shadow mt-0 d-none" type="button" id="btn-approve-claim">
+          Approve Claim
+        </button>
+      </div>
+    </div>
+
+    <div class="row bounty-not-owned-btn-row d-none">
+      <div class="col btn-col">
+        <button class="btn btn-primary btn-block btn-lg btn-shadow mt-0 d-none" type="button" id="btn-track-bounty">
+          Track Bounty
+        </button>
+        <button class="btn btn-primary btn-block btn-lg btn-shadow mt-0 d-none" type="button" id="btn-untrack-bounty">
+          Untrack Bounty
+        </button>
+      </div>
+      <div class="col btn-col">
+        <button class="btn btn-secondary btn-block btn-lg btn-shadow mt-0 d-none" type="button" id="btn-claim-bounty">
+          Claim Bounty
+        </button>
+        <button class="btn btn-secondary btn-block btn-lg btn-shadow mt-0 d-none" type="button" id="btn-cancel-claim">
+          Cancel Claim
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <section class="pt-3">
+    <div class="card">
+      <h5 class="card-header text-center">Description</h5>
+      <div class="card-body">
+        <div class="issue-description"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-comments pt-5">
+    <h4 class="text-center">Comments</h4>
+    <hr>
+    <div class="container comment-container">
+    </div>
+  </section>
+</div>
+
+<!--jQuery-->
+<script
+  src="https://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
+<!--Firebase-->
+<script src="https://www.gstatic.com/firebasejs/4.11.0/firebase.js"></script>
+<script src="assets/scripts/firebase_config.js"></script>
+<!--Shims-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/core-js/2.4.1/core.js"></script>
+<!--Sweet Alert-->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2"></script>
+<!--Showdown-->
+<script src="https://cdn.rawgit.com/showdownjs/showdown/1.8.6/dist/showdown.min.js"></script>
+<!--countUp-->
+<script src="assets/scripts/count_up.js"></script>
+<!--Main App-->
+<script src="assets/scripts/globals.js"></script>
+<script src="assets/scripts/utils.js"></script>
+<script src="assets/scripts/authentication.js"></script>
+<script src="assets/scripts/database.js"></script>
+<script src="assets/scripts/bounty_info.js"></script>
+</body>
+
+</html>

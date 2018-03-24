@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OctoBounty</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap.min.css">
+  <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.css">
+  <!--TODO: remove bootstrap hard reference-->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,600">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Quicksand">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.5.2/animate.min.css">
+  <link rel="stylesheet" href="assets/css/bootstrap_dark_theme.css">
+  <link rel="stylesheet" href="assets/css/main.css">
+  
+  <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"
+          integrity="sha384-SlE991lGASHoBfWbelyBPLsUlwY1GwNDJo3jSJO04KZ33K2bwfV9YBauFfnzvynJ"
+          crossorigin="anonymous"></script>
+</head>
+
+<body>
+<div class="container">
+  <div class="row">
+    <svg class="app-title w-100">
+      <symbol id="s-text">
+        <text text-anchor="middle" x="50%" y="80%">OctoBounty</text>
+      </symbol>
+      
+      <g class="g-ants">
+        <use xlink:href="#s-text" class="app-title-copy"></use>
+        <use xlink:href="#s-text" class="app-title-copy"></use>
+        <use xlink:href="#s-text" class="app-title-copy"></use>
+        <use xlink:href="#s-text" class="app-title-copy"></use>
+        <use xlink:href="#s-text" class="app-title-copy"></use>
+      </g>
+    </svg>
+  </div>
+  
+  <div class="row pt-4 pt-sm-5 signin-card">
+    <div class="col col-sm-6 offset-sm-3">
+      <div class="card">
+        <div class="card-body">
+          <div class="row">
+            <div class="col d-flex">
+              <button class="btn btn-dark btn-git rounded-circle d-flex mx-auto"><i class="fab fa-github-alt my-auto mx-auto"></i></button>
+            </div>
+          </div>
+          
+          <div class="row pt-3">
+            <div class="col-5 pr-0">
+              <hr class="bg-gray">
+            </div>
+            <div class="col-2 p-0">
+              <div class="text-center font-weight-bold">OR</div>
+            </div>
+            <div class="col-5 pl-0">
+              <hr class="bg-gray">
+            </div>
+          </div>
+          
+          <div class="row pt-2">
+            <div class="col">
+              <form>
+                <div class="form-group">
+                  <label for="emailLoginFormInput">Email address</label>
+                  <input type="email" class="form-control" id="emailLoginFormInput" aria-describedby="emailHelp" placeholder="Enter email">
+                </div>
+                <div class="form-group">
+                  <label for="passwordLoginFormInput">Password</label>
+                  <input type="password" class="form-control" id="passwordLoginFormInput" placeholder="Password">
+                </div>
+                <div class="form-row d-flex">
+                  <button type="submit" class="btn btn-dark mx-auto w-25" id="btn-login-submit">Login</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+        
+        <div class="card-footer bg-gray">
+          <div class="row">
+            <div class="col text-center">
+              <a href="#" class="text-dark font-weight-bold" id="btn-register-page">Register</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="row pt-5 register-card d-none">
+    <div class="col col-sm-6 offset-sm-3">
+      <div class="card">
+        <div class="card-body">
+          
+          <div class="row pt-2 register-section">
+            <div class="col">
+              <form>
+                <div class="form-group">
+                  <label for="displayNameRegisterFormInput">Display Name</label>
+                  <input type="text" class="form-control" id="displayNameRegisterFormInput" placeholder="Example input">
+                </div>
+                <div class="form-group">
+                  <label for="exampleInputEmail1">Email address</label>
+                  <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+                  <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                </div>
+                <div class="form-group">
+                  <label for="passwordRegisterFormInput">Password</label>
+                  <input type="password" class="form-control" id="passwordRegisterFormInput" placeholder="Password">
+                </div>
+                <div class="form-group">
+                  <label for="passwordConfirmRegisterFormInput">Confirm Password</label>
+                  <input type="password" class="form-control" id="passwordConfirmRegisterFormInput" placeholder="Password">
+                </div>
+                <div class="form-row d-flex">
+                  <button type="submit" class="btn btn-dark w-50 mx-auto" id="btn-register-submit">Register</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+        
+        <div class="card-footer bg-gray">
+          <div class="row">
+            <div class="col text-center">
+              <a href="#" class="text-dark font-weight-bold" id="btn-signin-page">Sign In</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="assets/scripts/login.js"></script>
+</body>
+
+</html>
