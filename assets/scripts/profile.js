@@ -6,7 +6,13 @@ $().ready(() => {
 
   $('#btn-save-profile').on('click', event => {
     event.preventDefault()
-    addUserInformation(username)
+    swal({
+      background: 'var(--dark)',
+      html: '<h4 class="text-center text-light mt-0">Information Updated</h4>',
+      type: 'info'
+    }).then(() => {
+      addUserInformation(username)
+    })
   })
 })
 
