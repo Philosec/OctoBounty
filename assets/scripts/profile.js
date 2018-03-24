@@ -1,0 +1,20 @@
+$().ready(() => {
+  setupUserAuthentication()
+  let username = window.localStorage.getItem('ghUsername')
+
+  $('#btn-save-profile').on('click', event => {
+    event.preventDefault()
+    addProfileKeyValue(username, 'first_name', $('#inputFirstName').val())
+    addProfileKeyValue(username, 'last_name', $('#inputLastName').val())
+    addProfileKeyValue(username, 'street_address', $('#input-street-address').val())
+    addProfileKeyValue(username, 'apt_suite', $('#input-apt-suite').val())
+    addProfileKeyValue(username, 'city', $('#inputCity').val())
+    addProfileKeyValue(username, 'state', $('#inputState').val())
+    addProfileKeyValue(username, 'zip', $('#inputZip').val())
+    addCardInfoKeyValue(username, 'name_on_card', $('#inputNameOnCard').val())
+    addCardInfoKeyValue(username, 'card_number', $('#inputCardNumber').val())
+    addCardInfoKeyValue(username, 'exp_month', $('#inputExpMonth').val())
+    addCardInfoKeyValue(username, 'exp_year', $('#inputExpYear').val())
+    addCardInfoKeyValue(username, 'csv', $('#inputCsv').val())
+  })
+})
