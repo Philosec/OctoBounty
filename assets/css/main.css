@@ -219,15 +219,15 @@ pre,
 /*APP TITLE*/
 .app-title {
   display: block;
-  font: 9.5em 'Quicksand';
-  height: 180px;
+  font: 4.5em 'Quicksand';
+  height: 80px;
 }
 
 .app-title-copy {
   fill: none;
   stroke: white;
   stroke-dasharray: 6% 29%;
-  stroke-width: 5px;
+  stroke-width: 2px;
   stroke-dashoffset: 0%;
   animation: stroke-offset 5.5s infinite linear;
 }
