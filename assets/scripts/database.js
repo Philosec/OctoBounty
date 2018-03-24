@@ -49,11 +49,6 @@ function addCardInfoKeyValue (ghUsername, key, value) {
   }
 }
 
-function removeOpenBounty (issueHashId) {
-  let openBountiesRef = database.ref('open_bounties')
-  openBountiesRef.child(issueHashId).remove()
-}
-
 function updateBountyOpenStatus (issueHashId, boolValue) {
   let bountiesRef = database.ref('bounties')
   bountiesRef.child(issueHashId).child('is_open').set(boolValue)
@@ -91,13 +86,6 @@ function addBountyClaim (ghUsername, issueHashId) {
         userClaimedBountiesRef.child(issueHashId).set(true)
       }
     })
-}
-
-function removeBountyClaim (ghUsername, issueHashId) {
-  let claimedBountiesRef = database.ref('claimed_bounties')
-  claimedBountiesRef.child(issueHashId).remove()
-  let userClaimedBountiesRef = database.ref('users').child(ghUsername).child('claimed_bounties')
-  userClaimedBountiesRef.child(issueHashId).remove()
 }
 
 function addClosedBounty (ghusername, issueHashId) {
@@ -155,14 +143,49 @@ function addTrackBountyToUser (ghUsername, issueHashId) {
     })
 }
 
-function removeTrackBountyFromUser (ghUsername, issueHashId) {
-  let userTrackedBountiesRef = database.ref('users').child(ghUsername).child('tracked_bounties')
-  userTrackedBountiesRef.child(issueHashId).remove()
+function removeBounty (issueHashId) {
+  let bountyRef = database.ref('bounties')
+  bountyRef.child(issueHashId).remove()
+}
+
+function removeOpenBounty (issueHashId) {
+  let openBountiesRef = database.ref('open_bounties')
+  openBountiesRef.child(issueHashId).remove()
+}
+
+function removeOwnedBountyFromUser (ghUsername, issueHashId) {
+  let userOwnedBountiesRef = database.ref('users').child(ghUsername).child('owned_bounties')
+  userOwnedBountiesRef.child(issueHashId).remove()
 }
 
 function removeOpenBountyFromUser (ghUsername, issueHashId) {
   let userOpenBountiesRef = database.ref('users').child(ghUsername).child('open_bounties')
   userOpenBountiesRef.child(issueHashId).remove()
+}
+
+function removeTrackBountyFromUser (ghUsername, issueHashId) {
+  let userTrackedBountiesRef = database.ref('users').child(ghUsername).child('tracked_bounties')
+  userTrackedBountiesRef.child(issueHashId).remove()
+}
+
+function removeTrackBountyFromAllUsers (issueHashId, completeCallback) {
+  let usersRef = database.ref('users')
+  usersRef.once('value')
+    .then(snapshot => {
+      snapshot.forEach(childSnapshot => {
+        usersRef.child(childSnapshot.key).child('tracked_bounties').child(issueHashId).remove()
+      })
+      if (completeCallback) {
+        completeCallback()
+      }
+    })
+}
+
+function removeBountyClaim (ghUsername, issueHashId) {
+  let claimedBountiesRef = database.ref('claimed_bounties')
+  claimedBountiesRef.child(issueHashId).remove()
+  let userClaimedBountiesRef = database.ref('users').child(ghUsername).child('claimed_bounties')
+  userClaimedBountiesRef.child(issueHashId).remove()
 }
 
 //-------------------------------------

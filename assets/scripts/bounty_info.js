@@ -88,6 +88,13 @@ function registerButtonCallbacks () {
     $('.bounty-owned-btn-row').addClass('d-none')
     $('.current-bounty-heading').text('Paid Bounty')
   })
+
+  $('#btn-cancel-bounty').on('click', event => {
+    event.preventDefault()
+    removeAllBounty(() => {
+      window.location = 'index.html'
+    })
+  })
 }
 
 function populateIssueDetails (issueJSON, issueId, bountyAmount) {
@@ -152,4 +159,15 @@ function approveBountyClaim () {
   let username = window.localStorage.getItem('ghUsername')
 
   addClosedBounty(username, issueHashId)
+}
+
+function removeAllBounty(callback) {
+  let issueHashId = getHashFromIssueId(getParameterByName('issueId'))
+  let username = window.localStorage.getItem('ghUsername')
+
+  removeBounty(issueHashId)
+  removeOpenBounty(issueHashId)
+  removeOwnedBountyFromUser(username, issueHashId)
+  removeOpenBountyFromUser(username, issueHashId)
+  removeTrackBountyFromAllUsers(issueHashId, callback)
 }
