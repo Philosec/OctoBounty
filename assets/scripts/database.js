@@ -35,6 +35,16 @@ function addNewBountyData (issueUrlId, userOpened, bountyAmount, failCallback) {
     })
 }
 
+function addProfileKeyValue (ghUsername, key, value) {
+  let userPersonalInfoRef = database.ref('users').child(ghUsername).child('personal_info')
+  userPersonalInfoRef.child(key).set(value)
+}
+
+function addCardInfoKeyValue (ghUsername, key, value) {
+  let userPersonalInfoRef = database.ref('users').child(ghUsername).child('card_info')
+  userPersonalInfoRef.child(key).set(value)
+}
+
 function removeOpenBounty (issueHashId) {
   let openBountiesRef = database.ref('open_bounties')
   openBountiesRef.child(issueHashId).remove()
@@ -121,7 +131,7 @@ function addClosedBounty (ghusername, issueHashId) {
         removeBountyClaim(claimerUsername, issueHashId)
         removeOpenBountyFromUser(ghusername, issueHashId)
         removeOpenBounty(issueHashId)
-        removeTrackBountyFromUser(claimerUsername,issueHashId)
+        removeTrackBountyFromUser(claimerUsername, issueHashId)
         updateBountyOpenStatus(issueHashId, false)
       }
     })
@@ -246,7 +256,7 @@ function onBountyActive (issueHashId, successCallback, failCallback) {
 //Get Callbacks
 //-------------------------------------
 
-function getTotalUserOpenedBounties(ghUsername, callback) {
+function getTotalUserOpenedBounties (ghUsername, callback) {
   let userOwnedBountiesRef = database.ref('users').child(ghUsername).child('owned_bounties')
   userOwnedBountiesRef.on('value', snapshot => {
     if (snapshot.val() === null) {
@@ -262,7 +272,7 @@ function getTotalUserOpenedBounties(ghUsername, callback) {
   })
 }
 
-function getTotalUserEarnedBounties(ghUsername, callback) {
+function getTotalUserEarnedBounties (ghUsername, callback) {
   let userEarnedBountiesRef = database.ref('users').child(ghUsername).child('bounties_earned')
   userEarnedBountiesRef.on('value', snapshot => {
     if (snapshot.val() === null) {
@@ -278,7 +288,7 @@ function getTotalUserEarnedBounties(ghUsername, callback) {
   })
 }
 
-function getTotalAmountPaid(ghUsername, callback) {
+function getTotalAmountPaid (ghUsername, callback) {
   let userClosedBountiesRef = database.ref('users').child(ghUsername).child('closed_bounties')
   let bountiesRef = database.ref('bounties')
 
@@ -304,7 +314,7 @@ function getTotalAmountPaid(ghUsername, callback) {
   })
 }
 
-function getTotalAmountEarned(ghUsername, callback) {
+function getTotalAmountEarned (ghUsername, callback) {
   let userEarnedBountiesRef = database.ref('users').child(ghUsername).child('bounties_earned')
   let bountiesRef = database.ref('bounties')
 
