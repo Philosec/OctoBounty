@@ -52,6 +52,10 @@
   background-color: var(--gray) !important;
 }
 
+.bg-black {
+  background-color: black !important;
+}
+
 .bg-search-bar {
   background-color: var(--search-bar) !important;
 }
