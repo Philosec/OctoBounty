@@ -423,3 +423,37 @@ function getTotalAmountEarned (ghUsername, callback) {
     }
   })
 }
+
+function getUserPersonalInfo(username, callback) {
+  let userPersonalInfoRef = database.ref('users').child(username).child('personal_info')
+  userPersonalInfoRef.once('value')
+    .then(userInfoSnapshot => {
+      if (callback) {
+        callback({
+          first_name: userInfoSnapshot.child('first_name').val(),
+          last_name: userInfoSnapshot.child('last_name').val(),
+          street_address: userInfoSnapshot.child('street_address').val(),
+          apt_suite: userInfoSnapshot.child('apt_suite').val(),
+          city: userInfoSnapshot.child('city').val(),
+          state: userInfoSnapshot.child('state').val(),
+          zip: userInfoSnapshot.child('zip').val()
+        })
+      }
+    })
+}
+
+function getUserCardInfo(username, callback) {
+  let userCardInfoRef = database.ref('users').child(username).child('card_info')
+  userCardInfoRef.once('value')
+    .then(userCardInfoSnapshot => {
+      if (callback) {
+        callback({
+          name_on_card: userCardInfoSnapshot.child('name_on_card').val(),
+          card_number: userCardInfoSnapshot.child('card_number').val(),
+          exp_month: userCardInfoSnapshot.child('exp_month').val(),
+          exp_year: userCardInfoSnapshot.child('exp_year').val(),
+          csv: userCardInfoSnapshot.child('csv').val()
+        })
+      }
+    })
+}
