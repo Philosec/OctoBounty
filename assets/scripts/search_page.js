@@ -22,14 +22,19 @@ $().ready(() => {
           $.get(commentApiUrl, commentsResponse => {
             let linkId = getIssueIdFromApiUrl(issueApiUrl)
             let bountyAmount = issueVal.bounty_amount_posted
-            appendNewSearchLink('.search-bounties-well', linkId, issueResponse.title, commentsResponse.length, bountyAmount, hashId)
+            if ($('.search-bounties-well').children('.issue-link-row').length <= 0) {
+              appendNewSearchLink('.search-bounties-well', linkId, issueResponse.title, commentsResponse.length, bountyAmount, false, hashId)
+            }
+            else {
+              appendNewSearchLink('.search-bounties-well', linkId, issueResponse.title, commentsResponse.length, bountyAmount, true, hashId)
+            }
           })
         })
       })
   })
 })
 
-function appendNewSearchLink (parentSelector, linkId, issueTitle, commentCount, bountyAmount, hashId) {
+function appendNewSearchLink (parentSelector, linkId, issueTitle, commentCount, bountyAmount, useSeparator, hashId) {
   let $link = $('<a href="bounty-info.html" class="issue-text bounty-link" data-issue-id=' + linkId + '>').text(issueTitle)
   let $issueTitleCol = $('<div class="col-12 col-md-6 text-truncate my-auto">')
   let $commentCountCol = $('<div class="col-6 col-md-4 text-center comment-count my-auto">').text(commentCount + ' Comments')
@@ -40,7 +45,10 @@ function appendNewSearchLink (parentSelector, linkId, issueTitle, commentCount, 
   $($row).append($issueTitleCol)
   $($row).append($commentCountCol)
   $($row).append($bountyAmountCol)
-  $($row).addClass('top-border-gray')
+
+  if (useSeparator) {
+    $($row).addClass('top-border-gray')
+  }
 
   $(parentSelector).append($row)
 }
