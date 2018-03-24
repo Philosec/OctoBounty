@@ -23,15 +23,15 @@
   <header>
     <div class="row">
       <div class="col-2 d-flex pl-1 pr-1"><a
-        class="btn btn-outline-light btn-sm d-flex mx-auto my-auto btn-circle p-1"
+        class="btn btn-outline-light btn-sm d-flex mx-auto my-auto btn-circle"
         role="button" href="dashboard.html"><i class="fas fa-home mx-auto my-auto"></i></a>
       </div>
       <div class="col-8 p-0 d-flex">
         <h2 class="bounty-title text-center mx-auto my-auto"></h2>
       </div>
-      <div class="col-2 d-flex pl-1 pr-1"><a
-        class="btn btn-outline-light btn-sm d-flex mx-auto my-auto btn-circle p-1"
-        id="btn-profile" role="button" href="#"><i class="fas fa-user my-auto mx-auto"></i></a>
+      <div class="col-3 col-sm-2 offset-sm-0 d-flex justify-content-center align-self-center"><a
+        class="btn btn-outline-light btn-sm d-flex btn-circle p-1"
+        id="btn-profile" role="button" href="profile.html"><i class="fas fa-user my-auto mx-auto"></i></a>
       </div>
     </div>
   </header>
@@ -46,7 +46,7 @@
   <section>
     <div class="row">
       <div class="col pt-3 text-center">
-        <h1 class="text-truncate font-weight-bold current-bounty-heading"></h1>
+        <h1 class="my-auto mx-auto display-name"></h1>
       </div>
     </div>
     <div class="row">
@@ -93,22 +93,48 @@
     </div>
   </section>
 
-  <section class="pt-3">
+  <section class="pt-5">
     <div class="card">
-      <h5 class="card-header text-center">Description</h5>
+      <h5 class="card-header text-center"></h5>
       <div class="card-body">
         <div class="issue-description"></div>
       </div>
     </div>
   </section>
 
-  <section class="section-comments pt-5">
-    <h4 class="text-center">Comments</h4>
-    <hr>
-    <div class="container comment-container">
-    </div>
-  </section>
-</div>
+  <table class="table">
+    <thead>
+    <tr>
+      <th scope="col">Date</th>
+      <th scope="col">Transaction Type</th>
+      <th scope="col">Bounty ID</th>
+      <th scope="col">Amount</th>
+      <th scope="col">Lifetime</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+      <th scope="row">1</th>
+      <td>12/17/2017</td>
+      <td>Credit</td>
+      <td>12290</td>
+      <td>$150.00</td>
+      <td>$350.00</td>
+    </tr>
+    <tr>
+      <th scope="row">2</th>
+      <td>Jacob</td>
+      <td>Thornton</td>
+      <td>@fat</td>
+    </tr>
+    <tr>
+      <th scope="row">3</th>
+      <td>Larry</td>
+      <td>the Bird</td>
+      <td>@twitter</td>
+    </tr>
+    </tbody>
+  </table>
 
 <!--jQuery-->
 <script
@@ -124,8 +150,6 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2"></script>
 <!--Showdown-->
 <script src="https://cdn.rawgit.com/showdownjs/showdown/1.8.6/dist/showdown.min.js"></script>
-<!--countUp-->
-<script src="assets/scripts/count_up.js"></script>
 <!--Main App-->
 <script src="assets/scripts/globals.js"></script>
 <script src="assets/scripts/utils.js"></script>

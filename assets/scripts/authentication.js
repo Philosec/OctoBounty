@@ -33,6 +33,8 @@ function setupUserAuthentication () {
     if (activeUser === null) {
       let provider = new firebase.auth.GithubAuthProvider()
       firebase.auth().signInWithRedirect(provider)
+    }else {
+      window.location = "profile.html"
     }
   })
 }
