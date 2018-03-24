@@ -1,5 +1,12 @@
 $().ready(() => {
   setupUserAuthentication()
+
+  $(document).on('click', dbSelectors.bountyLink, event => {
+    event.preventDefault()
+    let issueId = $(event.currentTarget).data('issue-id')
+    window.location = $(event.currentTarget).attr('href') + '?issueId=' + issueId
+  })
+
   let openBountiesRef = database.ref('open_bounties')
   let allBountiesRef = database.ref('bounties')
 
