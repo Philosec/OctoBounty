@@ -17,6 +17,7 @@
   --light-gray: #c3c5c7;
   --dark-gray: #a1a3a5;
   --mid-gray-2: #b3b5b7;
+  --search-bar: #98a7a4;
 }
 
 .bg-primary {
@@ -49,6 +50,10 @@
 
 .bg-gray {
   background-color: var(--gray) !important;
+}
+
+.bg-search-bar {
+  background-color: var(--search-bar) !important;
 }
 
 .text-primary {

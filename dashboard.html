@@ -40,34 +40,34 @@
         <p class="text-center info-circle-heading">Bounties Issued</p>
       </div>
       <div class="col-3 d-flex justify-content-center">
-        <p class="text-center info-circle-heading">Total $ Posted</p>
+        <p class="text-center info-circle-heading">Total $ Paid</p>
       </div>
       <div class="col-3 d-flex justify-content-center">
-        <p class="text-center info-circle-heading">Bounties Claimed</p>
+        <p class="text-center info-circle-heading">Bounties Earned</p>
       </div>
       <div class="col-3 d-flex justify-content-center">
-        <p class="text-center info-circle-heading">Total $ Collected</p>
+        <p class="text-center info-circle-heading">Total $ Earned</p>
       </div>
     </div>
     <div class="row info-circle-row">
       <div class="col-3 d-flex justify-content-center">
         <div class="d-flex flex-column justify-content-center info-circle-bounties">
-          <h3 class="text-center">12</h3>
+          <h4 class="text-center num-bounties-issued-circle">0</h4>
         </div>
       </div>
       <div class="col-3 d-flex justify-content-center">
         <div class="d-flex flex-column justify-content-center info-circle-bounties">
-          <h3 class="text-center">$12</h3>
+          <h4 class="text-center">$<span class="amount-bounties-paid-circle">0</span></h4>
         </div>
       </div>
       <div class="col-3 d-flex justify-content-center">
         <div class="d-flex flex-column justify-content-center info-circle-claims">
-          <h3 class="text-center">12</h3>
+          <h4 class="text-center num-bounties-earned-circle">0</h4>
         </div>
       </div>
       <div class="col-3 d-flex justify-content-center">
         <div class="d-flex flex-column justify-content-center info-circle-claims">
-          <h3 class="text-center">$12</h3>
+          <h4 class="text-center">$<span class="amount-bounties-earned-circle">0</span></h4>
         </div>
       </div>
     </div>
@@ -79,8 +79,7 @@
         <button class="btn btn-secondary btn-block btn-shadow" type="button" id="btn-new-bounty">New Bounty</button>
       </div>
       <div class="col-sm-6 col-md-5 offset-sm-0 offset-md-0 btn-col">
-        <button class="btn btn-secondary btn-block btn-shadow" type="button" id="btn-search-bounties">Search Bounties
-        </button>
+        <a href="search-bounties.html" class="btn btn-secondary btn-block btn-shadow" id="btn-search-bounties">Search Bounties</a>
       </div>
     </div>
   </section>
@@ -113,8 +112,21 @@
 
   <section class="pt-4">
     <div class="card">
-      <h5 class="card-header text-center">Requested Claim</h5>
+      <h5 class="card-header text-center">Your Active Claims</h5>
       <div class="card-body claimed-bounties-well">
+        <div class="row nothing-here-row">
+          <div class="col text-center">
+            <h3 class="text-muted">Nothing Here</h3>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="pt-4">
+    <div class="card">
+      <h5 class="card-header text-center">Claims Waiting Your Approval</h5>
+      <div class="card-body waiting-approval-well">
         <div class="row nothing-here-row">
           <div class="col text-center">
             <h3 class="text-muted">Nothing Here</h3>
@@ -166,6 +178,8 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2"></script>
 <!--Showdown-->
 <script src="https://cdn.rawgit.com/showdownjs/showdown/1.8.6/dist/showdown.min.js"></script>
+<!--countUp-->
+<script src="assets/scripts/count_up.js"></script>
 <!--Main App-->
 <script src="assets/scripts/globals.js"></script>
 <script src="assets/scripts/utils.js"></script>

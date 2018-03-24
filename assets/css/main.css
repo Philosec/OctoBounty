@@ -4,7 +4,7 @@ body {
   background: linear-gradient(
     rgba(37, 44, 48, 0.96),
     rgba(37, 44, 48, 0.96)),
-    url(../images/neon-city-bg.png) no-repeat center center fixed;
+  url(../images/neon-city-bg.png) no-repeat center center fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -88,11 +88,11 @@ p {
   border-radius: 2.25rem;
 }
 
-.info-circle-bounties h3 {
+.info-circle-bounties h4 {
   color: var(--orange);
 }
 
-.info-circle-claims h3 {
+.info-circle-claims h4 {
   color: var(--green);
 }
 
@@ -257,6 +257,19 @@ pre,
 /*MEDIA QUERIES*/
 
 @media (max-width: 576px) {
+  /*Dashboard*/
+  .card-header {
+    font-size: 1.0rem;
+  }
+
+  .app-name-header {
+    font-size: 1.5rem;
+  }
+
+  #search-input {
+    font-size: 0.8rem;
+  }
+
   /*Bounty Details Page*/
   .bounty-title {
     font-size: 1.0rem;
