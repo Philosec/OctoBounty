@@ -266,24 +266,31 @@ function onPersonalInfoExists (ghUsername, successCallback, failCallback) {
     .then(userPersonalInfoSnapshot => {
       let exists = true
       if (!userPersonalInfoSnapshot.child('first_name').exists() || userPersonalInfoSnapshot.child('first_name').val() === '') {
+        console.log('1')
         exists = false
       }
       if (!userPersonalInfoSnapshot.child('last_name').exists() || userPersonalInfoSnapshot.child('last_name').val() === '') {
+        console.log('1')
         exists = false
       }
       if (!userPersonalInfoSnapshot.child('street_address').exists() || userPersonalInfoSnapshot.child('street_address').val() === '') {
+        console.log('1')
         exists = false
       }
       if (!userPersonalInfoSnapshot.child('apt_suite').exists() || userPersonalInfoSnapshot.child('apt_suite').val() === '') {
+        console.log('1')
         exists = false
       }
       if (!userPersonalInfoSnapshot.child('city').exists() || userPersonalInfoSnapshot.child('city').val() === '') {
+        console.log('1')
         exists = false
       }
       if (!userPersonalInfoSnapshot.child('state').exists() || userPersonalInfoSnapshot.child('state').val() === '') {
+        console.log('1')
         exists = false
       }
       if (!userPersonalInfoSnapshot.child('zip').exists() || userPersonalInfoSnapshot.child('zip').val() === '') {
+        console.log('1')
         exists = false
       }
       if (exists) {
