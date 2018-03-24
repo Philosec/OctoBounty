@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OctoBounty</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap.min.css">
+  <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.css">
+  <!--TODO: remove bootstrap hard reference-->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,600">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Quicksand">
+  <link rel="stylesheet" href="assets/css/bootstrap_dark_theme.css">
+  <link rel="stylesheet" href="assets/css/main.css">
+
+  <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"
+          integrity="sha384-SlE991lGASHoBfWbelyBPLsUlwY1GwNDJo3jSJO04KZ33K2bwfV9YBauFfnzvynJ"
+          crossorigin="anonymous"></script>
+</head>
+
+<body class="pt-0">
+
+<div class="container-fluid bg-black pt-2 pb-2 d-flex mb-3">
+  <svg class="app-title w-100">
+    <symbol id="s-text">
+      <text text-anchor="middle" x="50%" y="80%">Octo/Bounty</text>
+    </symbol>
+
+    <g class="g-ants">
+      <use xlink:href="#s-text" class="app-title-copy"></use>
+      <use xlink:href="#s-text" class="app-title-copy"></use>
+      <use xlink:href="#s-text" class="app-title-copy"></use>
+      <use xlink:href="#s-text" class="app-title-copy"></use>
+      <use xlink:href="#s-text" class="app-title-copy"></use>
+    </g>
+  </svg>
+</div>
+
+<div class="container">
+  <header>
+    <div class="row">
+      <div class="col-2 d-flex pl-1 pr-1"><a
+        class="btn btn-outline-light btn-sm d-flex mx-auto my-auto btn-circle p-1"
+        role="button" href="index.html"><i class="fas fa-home mx-auto my-auto"></i></a>
+      </div>
+      <div class="col-8 d-flex">
+        <h1 class="my-auto mx-auto display-name"></h1>
+      </div>
+      <div class="col-2 d-flex pl-1 pr-1"><a
+        class="btn btn-outline-light btn-sm d-flex mx-auto my-auto btn-circle p-1"
+        id="btn-profile" role="button" href="#"><i class="fas fa-user my-auto mx-auto"></i></a>
+      </div>
+    </div>
+  </header>
+  <hr>
+
+  <section class="pt-3">
+    <div class="card">
+      <h4 class="card-header text-center">Search Open Bounties</h4>
+      <div class="card-body">
+        <div class="search-bounties-well pt-2">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!--jQuery-->
+  <script
+    src="https://code.jquery.com/jquery-3.3.1.min.js"
+    integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+    crossorigin="anonymous"></script>
+  <!--Firebase-->
+  <script src="https://www.gstatic.com/firebasejs/4.11.0/firebase.js"></script>
+  <script src="assets/scripts/firebase_config.js"></script>
+  <!--Shims-->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/core-js/2.4.1/core.js"></script>
+  <!--Sweet Alert-->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2"></script>
+  <!--Showdown-->
+  <script src="https://cdn.rawgit.com/showdownjs/showdown/1.8.6/dist/showdown.min.js"></script>
+  <!--countUp-->
+  <script src="assets/scripts/count_up.js"></script>
+  <!--Main App-->
+  <script src="assets/scripts/globals.js"></script>
+  <script src="assets/scripts/utils.js"></script>
+  <script src="assets/scripts/authentication.js"></script>
+  <script src="assets/scripts/database.js"></script>
+  <script src="assets/scripts/search_page.js"></script>
+</body>
+
+</html>
