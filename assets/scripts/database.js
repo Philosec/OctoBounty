@@ -49,11 +49,6 @@ function addCardInfoKeyValue (ghUsername, key, value) {
   }
 }
 
-function removeOpenBounty (issueHashId) {
-  let openBountiesRef = database.ref('open_bounties')
-  openBountiesRef.child(issueHashId).remove()
-}
-
 function updateBountyOpenStatus (issueHashId, boolValue) {
   let bountiesRef = database.ref('bounties')
   bountiesRef.child(issueHashId).child('is_open').set(boolValue)
@@ -65,7 +60,10 @@ function addNewUserData (ghUsername) {
     .then(snapshot => {
       if (!snapshot.child(ghUsername).exists()) {
         let userRef = database.ref('users')
-        userRef.child(ghUsername).set(true)
+        userRef.child(ghUsername).set({
+          personal_info: true,
+          card_info:true
+        })
       }
     })
 }
@@ -88,13 +86,6 @@ function addBountyClaim (ghUsername, issueHashId) {
         userClaimedBountiesRef.child(issueHashId).set(true)
       }
     })
-}
-
-function removeBountyClaim (ghUsername, issueHashId) {
-  let claimedBountiesRef = database.ref('claimed_bounties')
-  claimedBountiesRef.child(issueHashId).remove()
-  let userClaimedBountiesRef = database.ref('users').child(ghUsername).child('claimed_bounties')
-  userClaimedBountiesRef.child(issueHashId).remove()
 }
 
 function addClosedBounty (ghusername, issueHashId) {
@@ -152,14 +143,49 @@ function addTrackBountyToUser (ghUsername, issueHashId) {
     })
 }
 
-function removeTrackBountyFromUser (ghUsername, issueHashId) {
-  let userTrackedBountiesRef = database.ref('users').child(ghUsername).child('tracked_bounties')
-  userTrackedBountiesRef.child(issueHashId).remove()
+function removeBounty (issueHashId) {
+  let bountyRef = database.ref('bounties')
+  bountyRef.child(issueHashId).remove()
+}
+
+function removeOpenBounty (issueHashId) {
+  let openBountiesRef = database.ref('open_bounties')
+  openBountiesRef.child(issueHashId).remove()
+}
+
+function removeOwnedBountyFromUser (ghUsername, issueHashId) {
+  let userOwnedBountiesRef = database.ref('users').child(ghUsername).child('owned_bounties')
+  userOwnedBountiesRef.child(issueHashId).remove()
 }
 
 function removeOpenBountyFromUser (ghUsername, issueHashId) {
   let userOpenBountiesRef = database.ref('users').child(ghUsername).child('open_bounties')
   userOpenBountiesRef.child(issueHashId).remove()
+}
+
+function removeTrackBountyFromUser (ghUsername, issueHashId) {
+  let userTrackedBountiesRef = database.ref('users').child(ghUsername).child('tracked_bounties')
+  userTrackedBountiesRef.child(issueHashId).remove()
+}
+
+function removeTrackBountyFromAllUsers (issueHashId, completeCallback) {
+  let usersRef = database.ref('users')
+  usersRef.once('value')
+    .then(snapshot => {
+      snapshot.forEach(childSnapshot => {
+        usersRef.child(childSnapshot.key).child('tracked_bounties').child(issueHashId).remove()
+      })
+      if (completeCallback) {
+        completeCallback()
+      }
+    })
+}
+
+function removeBountyClaim (ghUsername, issueHashId) {
+  let claimedBountiesRef = database.ref('claimed_bounties')
+  claimedBountiesRef.child(issueHashId).remove()
+  let userClaimedBountiesRef = database.ref('users').child(ghUsername).child('claimed_bounties')
+  userClaimedBountiesRef.child(issueHashId).remove()
 }
 
 //-------------------------------------
@@ -258,28 +284,36 @@ function onBountyActive (issueHashId, successCallback, failCallback) {
 
 function onPersonalInfoExists (ghUsername, successCallback, failCallback) {
   let userPersonalInfoRef = database.ref('users').child(ghUsername).child('personal_info')
+
   userPersonalInfoRef.once('value')
-    .then(userPersonalInfoSnapshot, () => {
+    .then(userPersonalInfoSnapshot => {
       let exists = true
       if (!userPersonalInfoSnapshot.child('first_name').exists() || userPersonalInfoSnapshot.child('first_name').val() === '') {
+        console.log('1')
         exists = false
       }
       if (!userPersonalInfoSnapshot.child('last_name').exists() || userPersonalInfoSnapshot.child('last_name').val() === '') {
+        console.log('1')
         exists = false
       }
       if (!userPersonalInfoSnapshot.child('street_address').exists() || userPersonalInfoSnapshot.child('street_address').val() === '') {
+        console.log('1')
         exists = false
       }
       if (!userPersonalInfoSnapshot.child('apt_suite').exists() || userPersonalInfoSnapshot.child('apt_suite').val() === '') {
+        console.log('1')
         exists = false
       }
       if (!userPersonalInfoSnapshot.child('city').exists() || userPersonalInfoSnapshot.child('city').val() === '') {
+        console.log('1')
         exists = false
       }
       if (!userPersonalInfoSnapshot.child('state').exists() || userPersonalInfoSnapshot.child('state').val() === '') {
+        console.log('1')
         exists = false
       }
       if (!userPersonalInfoSnapshot.child('zip').exists() || userPersonalInfoSnapshot.child('zip').val() === '') {
+        console.log('1')
         exists = false
       }
       if (exists) {
@@ -297,7 +331,7 @@ function onPersonalInfoExists (ghUsername, successCallback, failCallback) {
 function onCardInfoExists (ghUsername, successCallback, failCallback) {
   let userCardInfoRef = database.ref('users').child(ghUsername).child('card_info')
   userCardInfoRef.once('value')
-    .then(cardInfoSnapshot, () => {
+    .then(cardInfoSnapshot => {
       let exists = true
       if (!cardInfoSnapshot.child('name_on_card').exists() || cardInfoSnapshot.child('name_on_card').val() === '') {
         exists = false
@@ -411,4 +445,38 @@ function getTotalAmountEarned (ghUsername, callback) {
         })
     }
   })
+}
+
+function getUserPersonalInfo(username, callback) {
+  let userPersonalInfoRef = database.ref('users').child(username).child('personal_info')
+  userPersonalInfoRef.once('value')
+    .then(userInfoSnapshot => {
+      if (callback) {
+        callback({
+          first_name: userInfoSnapshot.child('first_name').val(),
+          last_name: userInfoSnapshot.child('last_name').val(),
+          street_address: userInfoSnapshot.child('street_address').val(),
+          apt_suite: userInfoSnapshot.child('apt_suite').val(),
+          city: userInfoSnapshot.child('city').val(),
+          state: userInfoSnapshot.child('state').val(),
+          zip: userInfoSnapshot.child('zip').val()
+        })
+      }
+    })
+}
+
+function getUserCardInfo(username, callback) {
+  let userCardInfoRef = database.ref('users').child(username).child('card_info')
+  userCardInfoRef.once('value')
+    .then(userCardInfoSnapshot => {
+      if (callback) {
+        callback({
+          name_on_card: userCardInfoSnapshot.child('name_on_card').val(),
+          card_number: userCardInfoSnapshot.child('card_number').val(),
+          exp_month: userCardInfoSnapshot.child('exp_month').val(),
+          exp_year: userCardInfoSnapshot.child('exp_year').val(),
+          csv: userCardInfoSnapshot.child('csv').val()
+        })
+      }
+    })
 }

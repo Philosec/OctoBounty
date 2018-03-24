@@ -6,137 +6,190 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>OctoBounty</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap.min.css">
-  <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.css">
-  <!--TODO: remove bootstrap hard reference-->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,600">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Quicksand">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.5.2/animate.min.css">
   <link rel="stylesheet" href="assets/css/bootstrap_dark_theme.css">
   <link rel="stylesheet" href="assets/css/main.css">
-  
+
   <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"
           integrity="sha384-SlE991lGASHoBfWbelyBPLsUlwY1GwNDJo3jSJO04KZ33K2bwfV9YBauFfnzvynJ"
           crossorigin="anonymous"></script>
 </head>
 
-<body>
-<div class="container">
-  <div class="row">
-    <svg class="app-title w-100">
-      <symbol id="s-text">
-        <text text-anchor="middle" x="50%" y="80%">OctoBounty</text>
-      </symbol>
-      
-      <g class="g-ants">
-        <use xlink:href="#s-text" class="app-title-copy"></use>
-        <use xlink:href="#s-text" class="app-title-copy"></use>
-        <use xlink:href="#s-text" class="app-title-copy"></use>
-        <use xlink:href="#s-text" class="app-title-copy"></use>
-        <use xlink:href="#s-text" class="app-title-copy"></use>
-      </g>
-    </svg>
-  </div>
-  
-  <div class="row pt-4 pt-sm-5 signin-card">
-    <div class="col col-sm-6 offset-sm-3">
-      <div class="card">
-        <div class="card-body">
-          <div class="row">
-            <div class="col d-flex">
-              <button class="btn btn-dark btn-git rounded-circle d-flex mx-auto"><i class="fab fa-github-alt my-auto mx-auto"></i></button>
-            </div>
-          </div>
-          
-          <div class="row pt-3">
-            <div class="col-5 pr-0">
-              <hr class="bg-gray">
-            </div>
-            <div class="col-2 p-0">
-              <div class="text-center font-weight-bold">OR</div>
-            </div>
-            <div class="col-5 pl-0">
-              <hr class="bg-gray">
-            </div>
-          </div>
-          
-          <div class="row pt-2">
-            <div class="col">
-              <form>
-                <div class="form-group">
-                  <label for="emailLoginFormInput">Email address</label>
-                  <input type="email" class="form-control" id="emailLoginFormInput" aria-describedby="emailHelp" placeholder="Enter email">
-                </div>
-                <div class="form-group">
-                  <label for="passwordLoginFormInput">Password</label>
-                  <input type="password" class="form-control" id="passwordLoginFormInput" placeholder="Password">
-                </div>
-                <div class="form-row d-flex">
-                  <button type="submit" class="btn btn-dark mx-auto w-25" id="btn-login-submit">Login</button>
-                </div>
-              </form>
-            </div>
-          </div>
-        </div>
-        
-        <div class="card-footer bg-gray">
-          <div class="row">
-            <div class="col text-center">
-              <a href="#" class="text-dark font-weight-bold" id="btn-register-page">Register</a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  
-  <div class="row pt-5 register-card d-none">
-    <div class="col col-sm-6 offset-sm-3">
-      <div class="card">
-        <div class="card-body">
-          
-          <div class="row pt-2 register-section">
-            <div class="col">
-              <form>
-                <div class="form-group">
-                  <label for="displayNameRegisterFormInput">Display Name</label>
-                  <input type="text" class="form-control" id="displayNameRegisterFormInput" placeholder="Example input">
-                </div>
-                <div class="form-group">
-                  <label for="exampleInputEmail1">Email address</label>
-                  <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
-                  <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-                </div>
-                <div class="form-group">
-                  <label for="passwordRegisterFormInput">Password</label>
-                  <input type="password" class="form-control" id="passwordRegisterFormInput" placeholder="Password">
-                </div>
-                <div class="form-group">
-                  <label for="passwordConfirmRegisterFormInput">Confirm Password</label>
-                  <input type="password" class="form-control" id="passwordConfirmRegisterFormInput" placeholder="Password">
-                </div>
-                <div class="form-row d-flex">
-                  <button type="submit" class="btn btn-dark w-50 mx-auto" id="btn-register-submit">Register</button>
-                </div>
-              </form>
-            </div>
-          </div>
-        </div>
-        
-        <div class="card-footer bg-gray">
-          <div class="row">
-            <div class="col text-center">
-              <a href="#" class="text-dark font-weight-bold" id="btn-signin-page">Sign In</a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+<body class="pt-0">
+
+<div class="container-fluid bg-black pt-2 pb-2 d-flex mb-3">
+  <h1 class="text-center text-light my-auto mx-auto">Octo/Bounty</h1>
 </div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script src="assets/scripts/login.js"></script>
+<div class="container">
+  <header>
+    <div class="row">
+      <div class="col-9 col-sm-8 offset-sm-2 d-flex">
+        <h1 class="my-auto mx-auto display-name"></h1>
+      </div>
+      <div class="col-3 col-sm-2 offset-sm-0 d-flex justify-content-center align-self-center"><a
+        class="btn btn-outline-light btn-sm d-flex btn-circle p-1"
+        id="btn-profile" role="button" href="#"><i class="fas fa-user my-auto mx-auto"></i></a>
+      </div>
+    </div>
+  </header>
+
+  <hr>
+
+  <section>
+    <div class="row info-circle-row">
+      <div class="col-3 d-flex justify-content-center">
+        <p class="text-center info-circle-heading">Bounties Issued</p>
+      </div>
+      <div class="col-3 d-flex justify-content-center">
+        <p class="text-center info-circle-heading">Total $ Paid</p>
+      </div>
+      <div class="col-3 d-flex justify-content-center">
+        <p class="text-center info-circle-heading">Bounties Earned</p>
+      </div>
+      <div class="col-3 d-flex justify-content-center">
+        <p class="text-center info-circle-heading">Total $ Earned</p>
+      </div>
+    </div>
+    <div class="row info-circle-row">
+      <div class="col-3 d-flex justify-content-center">
+        <div class="d-flex flex-column justify-content-center info-circle-bounties">
+          <h4 class="text-center num-bounties-issued-circle">0</h4>
+        </div>
+      </div>
+      <div class="col-3 d-flex justify-content-center">
+        <div class="d-flex flex-column justify-content-center info-circle-bounties">
+          <h4 class="text-center">$<span class="amount-bounties-paid-circle">0</span></h4>
+        </div>
+      </div>
+      <div class="col-3 d-flex justify-content-center">
+        <div class="d-flex flex-column justify-content-center info-circle-claims">
+          <h4 class="text-center num-bounties-earned-circle">0</h4>
+        </div>
+      </div>
+      <div class="col-3 d-flex justify-content-center">
+        <div class="d-flex flex-column justify-content-center info-circle-claims">
+          <h4 class="text-center">$<span class="amount-bounties-earned-circle">0</span></h4>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="row">
+      <div class="col-sm-6 col-md-5 offset-md-1 btn-col">
+        <button class="btn btn-secondary btn-block btn-shadow" type="button" id="btn-new-bounty">New Bounty</button>
+      </div>
+      <div class="col-sm-6 col-md-5 offset-sm-0 offset-md-0 btn-col">
+        <a href="search-bounties.html" class="btn btn-secondary btn-block btn-shadow" id="btn-search-bounties">Search Bounties</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="pt-4">
+    <div class="card">
+      <h5 class="card-header text-center">Tracked Bounties</h5>
+      <div class="card-body tracked-bounties-well">
+        <div class="row nothing-here-row">
+          <div class="col text-center">
+            <h3 class="text-muted">Nothing Here</h3>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="pt-4">
+    <div class="card">
+      <h5 class="card-header text-center">Open Bounties</h5>
+      <div class="card-body open-bounties-well">
+        <div class="row nothing-here-row">
+          <div class="col text-center">
+            <h3 class="text-muted">Nothing Here</h3>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="pt-4">
+    <div class="card">
+      <h5 class="card-header text-center">Your Active Claims</h5>
+      <div class="card-body claimed-bounties-well">
+        <div class="row nothing-here-row">
+          <div class="col text-center">
+            <h3 class="text-muted">Nothing Here</h3>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="pt-4">
+    <div class="card">
+      <h5 class="card-header text-center">Claims Waiting Your Approval</h5>
+      <div class="card-body waiting-approval-well">
+        <div class="row nothing-here-row">
+          <div class="col text-center">
+            <h3 class="text-muted">Nothing Here</h3>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="pt-4">
+    <div class="card">
+      <h5 class="card-header text-center">Bounties Earned</h5>
+      <div class="card-body earned-bounties-well">
+        <div class="row nothing-here-row">
+          <div class="col text-center">
+            <h3 class="text-muted">Nothing Here</h3>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="pt-4">
+    <div class="card">
+      <h5 class="card-header text-center">Bounties Paid Out</h5>
+      <div class="card-body paid-bounties-well">
+        <div class="row nothing-here-row">
+          <div class="col text-center">
+            <h3 class="text-muted">Nothing Here</h3>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<!--jQuery-->
+<script
+  src="https://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
+<!--Firebase-->
+<script src="https://www.gstatic.com/firebasejs/4.11.0/firebase.js"></script>
+<script src="assets/scripts/firebase_config.js"></script>
+<!--Shims-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/core-js/2.4.1/core.js"></script>
+<!--Sweet Alert-->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2"></script>
+<!--Showdown-->
+<script src="https://cdn.rawgit.com/showdownjs/showdown/1.8.6/dist/showdown.min.js"></script>
+<!--countUp-->
+<script src="assets/scripts/count_up.js"></script>
+<!--Main App-->
+<script src="assets/scripts/globals.js"></script>
+<script src="assets/scripts/utils.js"></script>
+<script src="assets/scripts/authentication.js"></script>
+<script src="assets/scripts/database.js"></script>
+<script src="assets/scripts/dashboard.js"></script>
+
 </body>
 
 </html>

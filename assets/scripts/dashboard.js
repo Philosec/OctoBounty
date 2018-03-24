@@ -94,7 +94,7 @@ function initBountyTables () {
   })
   claimedBountiesRef.on('child_removed', claimedSnapshot => {
     let hashId = claimedSnapshot.key
-    $('#' + hashId, appendSelector).remove()
+    $('#' + hashId, '.waiting-approval-well').remove()
     if ($('.waiting-approval-well').children('.issue-link-row').length <= 0) {
       $('.waiting-approval-well').children('.nothing-here-row').removeClass('d-none')
     }
@@ -128,18 +128,13 @@ function setupBountyTable (userSubBountyRef, lookupRef, appendSelector) {
   userSubBountyRef.on('child_removed', userSnapshot => {
     let hashId = userSnapshot.key
     $('#' + hashId, appendSelector).remove()
+    if ($(appendSelector).children('.issue-link-row').length === 1) {
+      $('.issue-link-row', appendSelector).removeClass('top-border-gray')
+    }
     if ($(appendSelector).children('.issue-link-row').length <= 0) {
       $(appendSelector).children('.nothing-here-row').removeClass('d-none')
     }
   })
-}
-
-function tryRenderEmptyTableMessages () {
-  console.log('.tracked-bounties-well ' + $('.tracked-bounties-well').children('.issue-link-row').length)
-  console.log('.open-bounties-well ' + $('.open-bounties-well').children('.issue-link-row').length)
-  console.log('.claimed-bounties-well ' + $('.claimed-bounties-well').children('.issue-link-row').length)
-  console.log('.earned-bounties-well ' + $('.earned-bounties-well').children('.issue-link-row').length)
-  console.log('.paid-bounties-well ' + $('.paid-bounties-well').children('.issue-link-row').length)
 }
 
 function appendNewLink (parentSelector, linkId, issueTitle, commentCount, bountyAmount, useSeparator, hashId) {
@@ -183,6 +178,7 @@ function showNewBountyModal () {
     preConfirm: function () {
       return new Promise((resolve) => {
         let issueId = getIssueIdFromUrl($('#issue-url-input').val())
+        let username = window.localStorage.getItem('ghUsername')
         let bountyOffered = $('#bounty-offered-input').val()
         let issueApiUrl = getFullIssueUrlFromId(issueId) + getAuthTokenParameter()
 
@@ -191,15 +187,35 @@ function showNewBountyModal () {
           resolve()
         }
         else {
-          setTimeout(() => {
-            //Validate and pass the api URL and show message on fail
-            $.get(issueApiUrl, (response) => {
-              resolve([issueId, bountyOffered])
-            }).fail(() => {
-              swal.showValidationError('Issue URL is not valid.')
+          onPersonalInfoExists(username, () => {
+            onCardInfoExists(username, () => {
+              setTimeout(() => {
+                //Validate and pass the api URL and show message on fail
+                $.get(issueApiUrl, (response) => {
+                  resolve([issueId, bountyOffered])
+                }).fail(() => {
+                  swal.showValidationError('Issue URL is not valid.')
+                  resolve()
+                })
+              }, 1500)
+            }, () => {
+              swal({
+                background: 'var(--dark)',
+                html: '<h4 class="text-center text-light mt-0">Billing information not on file.</h4>',
+                type: 'error'
+              }).then(() => {
+                resolve()
+              })
+            })
+          }, () => {
+            swal({
+              background: 'var(--dark)',
+              html: '<h4 class="text-center text-light mt-0">Billing information not on file.</h4>',
+              type: 'error'
+            }).then(() => {
               resolve()
             })
-          }, 2000)
+          })
         }
       })
     },
